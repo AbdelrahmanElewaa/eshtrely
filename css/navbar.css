@@ -1,0 +1,20 @@
+.login
+{
+    float: right;
+}
+
+
+.signUp
+{
+    float: right;
+    margin-right: 5px;
+}
+
+.loginmodal
+{
+    
+   margin-top: 15px;
+   margin-left: 200px ;
+   /* float: left; */
+    
+}
