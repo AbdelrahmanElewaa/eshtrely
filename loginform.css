@@ -1,0 +1,25 @@
+.container
+{
+
+    margin-top: 200px;
+   width: 500px;
+   border-radius: 5px;
+}
+
+input{
+    margin-top: 20px;
+}
+h2{
+    margin-top: 5px;
+}
+.loginbutton
+{
+    margin-left: 200px;
+}
+h3{
+    margin-top:5px;
+}
+#loginm
+{
+    margin-left:200px;
+}

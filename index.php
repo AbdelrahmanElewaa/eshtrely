@@ -22,7 +22,11 @@ if (!empty($_SESSION['name']))
                 </a>
                 <div style="width:70px;"class="dropdown-menu" aria-labelledby="profile">
 
+                <form action="edituser.php" method="post">
+                <button type="submit" name="edit" class="dropdown-item" ><i class="fas fa-edit"></i>Edit Profile</button>
+                </form>
 <form action="" method="post">
+                 
                   <button type="submit" name="logout" class="dropdown-item" ><i class="fas fa-sign-out-alt"></i>Log Out</button> 
       </form>             
 
@@ -56,13 +60,14 @@ else{
 
 
 // logout operations
-
+ 
 if(isset($_POST['logout']))
 {
   $_SESSION['name']="";
   $_SESSION['photo']="";
   header('Location:index.php');
 }
+
 ?>
    
       <script>
@@ -73,10 +78,11 @@ $('#myModal').modal({
     backdrop: 'static',
     keyboard: false
 })
-
     </script>
- <!--   products -->
+   
    <?php
+
+
 
 $cartarray= array();
 
@@ -91,7 +97,7 @@ for($i=0;$i<$rows;$i++)
     for($j=0;$j<5;$j++)
           {
             if ($j==0) {
-                echo "<img src= ".$row[0]." width=\"150\" height=\"150\">";
+                echo "<img src= images/products/".$row[0]." width='200' height='200'>";
 
             }
             else{
@@ -113,6 +119,8 @@ for($i=0;$i<$rows;$i++)
 
 }
    ?>
+   
+
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>

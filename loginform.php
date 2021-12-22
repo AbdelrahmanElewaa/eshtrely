@@ -8,12 +8,15 @@
      <title>Login</title>
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/all.min.css">
+     <link rel="stylesheet" href="css/loginform.css">
      <?php
      session_start();
      ?>
  </head>
  <body>
- <div class="modal-body">
+
+ <div class="container border">
+   <h3 class="text-center">Login</h3>
                 <form class="form-group" action="#" method="post" onsubmit="return validateform()">
               Email <input class="form-control" type="email" autocomplete="off" placeholder="Email" name="email" id="emailID"><br>
              <div id="emailerror">
@@ -36,7 +39,13 @@ $result= mysqli_query($conn,$sql);
 if($result)
 {
 $row= mysqli_fetch_array($result);
+$_SESSION['id']=$row[0];
 $_SESSION['name']=$row[1];
+$_SESSION['email']=$row[2];
+$_SESSION['password']=$row[3];
+$_SESSION['phone']=$row[4];
+$_SESSION['address']=$row[5];
+$_SESSION['role']=$row[6];
 $_SESSION['photo']=$row[7];
 if($row["role"]=="admin")
 {
@@ -52,6 +61,8 @@ echo"error";
 
 }
 ?>
+
+<script src="js/validation.js"></script>
  </body>
  </html>
 
