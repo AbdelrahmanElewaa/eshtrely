@@ -63,7 +63,6 @@ if(isset($_POST['logout']))
   $_SESSION['photo']="";
   header('Location:index.php');
 }
-
 ?>
    
       <script>
@@ -74,28 +73,46 @@ $('#myModal').modal({
     backdrop: 'static',
     keyboard: false
 })
+
     </script>
-   
+ <!--   products -->
    <?php
 
+$cartarray= array();
+
 $conn= new mysqli("localhost","root","","eshtrely");
-$sql="SELECT id,name,price FROM products";
+$sql="SELECT productimage,productname,productid,productprice, rating FROM products ";
 $result=mysqli_query($conn,$sql);
 $rows=$result->num_rows;
 for($i=0;$i<$rows;$i++)
 {
     $row= $result->fetch_array(MYSQLI_NUM);
     
-    for($j=0;$j<3;$j++)
+    for($j=0;$j<5;$j++)
           {
-        echo $row[$j]."<br>";
+            if ($j==0) {
+                echo "<img src= ".$row[0]." width=\"150\" height=\"150\">";
+
+            }
+            else{
+                echo $row[$j];
+            }
+
+
+  echo "<br>";
+    
         
            }
-            
+
+
+ echo   "<button name=\"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
+
+ echo "<br>";  
+ echo "<br>";              
+
+
 }
-
    ?>
-
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
