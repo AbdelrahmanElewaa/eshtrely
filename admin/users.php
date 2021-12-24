@@ -46,7 +46,7 @@ include('includes/navbar.php');
 
 <?php
 $conn= new mysqli("localhost","root","","eshtrely");
-$sql="SELECT photo,name,email,password,phone,address,role FROM users";
+$sql="SELECT photo,name,email,password,phone,address,role,id FROM users";
 $result=mysqli_query($conn,$sql);
 $rows=$result->num_rows;
 for($i=0;$i<$rows;$i++)
@@ -59,7 +59,7 @@ for($i=0;$i<$rows;$i++)
           {
         echo "<td>".$row[$j]."</td>";
            }
-           echo"<td> <a href='#'><i class='fas fa-edit'>  </i></a>   <a href='#'><i class='fas fa-trash'></i></a> </td>"; 
+           echo"<td> <a href='adminEditUser.php?userid=".$row[7]."' type='submit'  ><i class='fas fa-edit'>  </i></a>   <a href='adminDeleteUser.php?userid=".$row[7]."'><i class='fas fa-trash'></i></a> </td>"; 
     echo"</tr>";
 }
 
@@ -88,7 +88,7 @@ include('includes/sourcesJS.php');
   <!-- /.control-sidebar -->
 </div>
    
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/all.min.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/all.min.js"></script>
 </html>

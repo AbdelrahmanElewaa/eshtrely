@@ -13,7 +13,7 @@ include('includes/navbar.php');
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Users</h1>
+            <h1 class="m-0">Products</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -55,12 +55,12 @@ for($i=0;$i<$rows;$i++)
     $row= $result->fetch_array(MYSQLI_NUM);
     echo "<tr>";
     echo"<td>".($i+1)."</td>";
-    echo "<td ><img style='width:90px; height:90px; background-size: cover; object-fit: cover;'src='../".$row[0] ."'</td>" ;
+    echo "<td ><img style='width:90px; height:90px; background-size: cover; object-fit: cover;'src='../images/products/".$row[0] ."'</td>" ;
     for($j=1;$j<7;$j++)
           {
         echo "<td>".$row[$j]."</td>";
            }
-           echo"<td> <a href='#'><i class='fas fa-edit'>  </i></a>   <a href='#'><i class='fas fa-trash'></i></a> </td>"; 
+           echo"<td> <a href='adminEditProduct.php?productid=".$row[2]."'><i class='fas fa-edit'>  </i></a>   <a href='adminDeleteProduct.php?productid=".$row[2]."'><i class='fas fa-trash'></i></a> </td>"; 
     echo"</tr>";
 }
 
@@ -69,9 +69,6 @@ for($i=0;$i<$rows;$i++)
 </tbody>
 </table >
   
-<?php
-include('includes/sourcesJS.php');
-?>
 
     <!-- /.content -->
   </div>
@@ -88,6 +85,9 @@ include('includes/sourcesJS.php');
   </aside>
   <!-- /.control-sidebar -->
 </div>
+<?php
+include('includes/sourcesJS.php');
+?>
    
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
