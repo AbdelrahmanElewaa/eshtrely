@@ -80,6 +80,14 @@ $('#myModal').modal({
 })
     </script>
    
+
+   <!-- <div class="container">
+     <div class="row">
+         <div class="col-md-6">
+            
+        </div>
+      </div>
+   </div> -->
    <?php
 
 
@@ -90,36 +98,42 @@ $conn= new mysqli("localhost","root","","eshtrely");
 $sql="SELECT productimage,productname,productid,productprice, rating FROM products ";
 $result=mysqli_query($conn,$sql);
 $rows=$result->num_rows;
+echo '<div class="container">
+    <div class="row">
+    <div class="col-sm-3">'; 
 for($i=0;$i<$rows;$i++)
 {
     $row= $result->fetch_array(MYSQLI_NUM);
-    
+      
     for($j=0;$j<5;$j++)
           {
             if ($j==0) {
-                echo "<img src= images/products/".$row[0]." width='200' height='200'>";
+                echo "<img src= images/products/".$row[0]." width='100' height='100'><br>";
 
             }
             else{
-                echo $row[$j];
+                echo $row[$j]."<br>";
             }
 
 
-  echo "<br>";
+  
     
-        
+      
            }
+           
 
-
- echo   "<button name=\"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
-
- echo "<br>";  
- echo "<br>";              
-
-
+//  echo   "<button name=\"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
+//echo "<input type='submit' value='Add to Cart'>";
+ echo "</div>"; 
+ 
+ 
 }
+echo "
+      </div>";              
+
+
    ?>
-   
+   </div>
 
 </body>
 <script src="js/jquery.js"></script>
