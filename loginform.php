@@ -20,7 +20,7 @@
  <div class="container border">
    <h3 class="text-center">Login</h3>
                 <form class="form-group" action="#" method="post" onsubmit="return validate()">
-              Email <input class="form-control" type="email" autocomplete="off" placeholder="Email" name="email" id="emailID"><br>
+              Email <input class="form-control" type="text" autocomplete="off" placeholder="Email" name="email" id="emailID"><br>
              <div id="emailerror">
 
              </div>
@@ -62,7 +62,7 @@ function validate()
         return false;
     
     }else{
-        return true
+        return true;
     }
 }
 
@@ -95,7 +95,8 @@ $_SESSION['phone']=$row[4];
 $_SESSION['address']=$row[5];
 $_SESSION['role']=$row[6];
 $_SESSION['photo']=$row[7];
-if($row["role"]=="admin")
+
+if($row[6]=="admin")
 {
   header("Location:admin/admin.php");
 }
@@ -110,11 +111,13 @@ echo"error";
 
 }
 else{
-  echo "Please enter your Email correctly";
+  echo" <script>
+  document.getElementById('emailerror').innerHTML='Enter your Email correctly';
+  </script>";
 }
 
-
 }
+
 ?>
 <!-- <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>

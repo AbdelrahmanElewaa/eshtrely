@@ -15,7 +15,7 @@
     <!-- <span class="border border-success"></span> -->
 <div class="container border border-success formcontainer text-center">
     <h3><b> Create Your Account</b></h3>
-    <form  action="" method="post" class="form-group f" enctype="multipart/form-data" onsubmit="validate()">
+    <form  action="" method="post" class="form-group f" enctype="multipart/form-data" onsubmit="return validate()">
         
 <input type="text" placeholder="Full Name" name="name" class="form-control" id="name">
 <div id="nameerror"></div>
@@ -45,9 +45,9 @@ function validate()
     var user_phone=document.getElementById('phone').value;
     var user_address=document.getElementById('address').value;
     var user_pass = document.getElementById('password').value;
-    <?php $error=false; ?>
+   
   if(user_name == '' || user_email =='' || user_phone ==''|| user_address ==''|| user_pass ==''){
-    <?php $error=true; ?>
+    
         if(user_name == ''){
             document.getElementById('nameerror').innerHTML = 'Full Name is Required';
             
@@ -106,13 +106,8 @@ function validate()
 
 <?php
 if(isset($_POST['signup'])){
-    if($error)
-    {
-?>
-<script> validate();</script>
-<?php
-    }
-    else{
+    
+  
 $conn= new mysqli("localhost","root","","eshtrely");
  
 $sql= "INSERT INTO users (name,email,phone,address,password,role,photo) VALUES ('".$_POST['name']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['address']."','".$_POST['password']."','".$_POST['role']."','".$_FILES['photo']['name']."')";
@@ -149,7 +144,7 @@ else{
      echo "error";
  }
 }
-}
+
 ?>
 
 
