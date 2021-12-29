@@ -121,7 +121,7 @@ for($i=0;$i<$rows;$i++)
       
     for($j=0;$j<5;$j++){
             if ($j==0) {
-                echo "<img src= ".$row[0]." width='100' height='100'><br>";
+                echo "<img src=images/products/ ".$row[0]." width='100' height='100'><br>";
 
             }
             else{
