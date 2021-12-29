@@ -11,10 +11,9 @@
     <link rel="stylesheet" href="css/search.css">
 </head>
 <body>
-
-        <?php
+<?php 
 include('mainIncludes/mainNavbar.php');
-session_start();
+include('admin/includes/session.php');
 if (!empty($_SESSION['name']))
 {
   echo '<div class="dropdown show">
@@ -57,40 +56,9 @@ else{
 
       <?php
 
-}   /// close curly bracket of the else above
-
-
-// logout operations
- 
-if(isset($_POST['logout']))
-{
-  $_SESSION['name']="";
-  $_SESSION['photo']="";
-  header('Location:index.php');
-}
-
+}   /// close curly bra
 ?>
-   
-      <script>
-// $('#myModal').on('shown.bs.modal', function () {
-//   $('#myInput').trigger('focus')
-// })    
-$('#myModal').modal({
-    backdrop: 'static',
-    keyboard: false
-})
-    </script>
-   
-
-   <!-- <div class="container">
-     <div class="row">
-         <div class="col-md-6">
-            
-        </div>
-      </div>
-   </div> -->
-
-
+</nav>
 <!--Search Bar-->
 
     <div class="topnav">
@@ -101,20 +69,19 @@ $('#myModal').modal({
     </form>
     </div>
     </div>
-
-   <?php
-   
-
-
-$cartarray= array();
-
+<?php
+$searchKey=$_GET['search'];
 $conn= new mysqli("localhost","root","","eshtrely");
-$sql="SELECT productimage,productname,productid,productprice, rating FROM products ";
-$result=mysqli_query($conn,$sql);
+$sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE productname LIKE '%$searchKey%'";
+$result=mysqli_query($conn,$sql) or die($conn->error);
 $rows=$result->num_rows;
-echo '<div class="container">
-    <div class="row">
-    <div class="col-sm-3">'; 
+echo '<div >
+    <div >
+    <div >'; 
+    if(empty($rows)){
+    	echo "<h1>No results found</h1>";
+    }
+    else{
 for($i=0;$i<$rows;$i++)
 {
     $row= $result->fetch_array(MYSQLI_NUM);
@@ -131,10 +98,6 @@ for($i=0;$i<$rows;$i++)
 
   
         }
-           
-
-//  echo   "<button name=\"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
-//echo "<input type='submit' value='Add to Cart'>";
 
 
  echo "</div>"; 
@@ -142,15 +105,14 @@ for($i=0;$i<$rows;$i++)
  
 }
 echo "
-      </div>";              
+      </div>"; 
+      }      
 
 
-   ?>
-   </div>
 
+
+?>
+</div>
+	
 </body>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/all.min.js"></script>
-<script src="js/validation.js"></script>
 </html>
