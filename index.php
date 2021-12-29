@@ -89,9 +89,7 @@ $('#myModal').modal({
         </div>
       </div>
    </div> -->
-
-
-<!--Search Bar-->
+   <!--Search Bar-->
 
     <div class="topnav">
     <div class="search-container">
@@ -101,9 +99,8 @@ $('#myModal').modal({
     </form>
     </div>
     </div>
-
    <?php
-   
+
 
 
 $cartarray= array();
@@ -119,9 +116,10 @@ for($i=0;$i<$rows;$i++)
 {
     $row= $result->fetch_array(MYSQLI_NUM);
       
-    for($j=0;$j<5;$j++){
+    for($j=0;$j<5;$j++)
+          {
             if ($j==0) {
-                echo "<img src=images/products/ ".$row[0]." width='100' height='100'><br>";
+                echo "<img src= images/products/".$row[0]." width='100' height='100'><br>";
 
             }
             else{
@@ -130,15 +128,15 @@ for($i=0;$i<$rows;$i++)
 
 
   
-        }
+    
+      
+           }
            
 
 //  echo   "<button name=\"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
 //echo "<input type='submit' value='Add to Cart'>";
-
-
  echo "</div>"; 
-
+ 
  
 }
 echo "
