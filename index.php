@@ -223,7 +223,7 @@ if(isset($_GET["success"]))
 
       <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
 
-      <input type="text" name="quantity" value="1" class="form-control" />
+      <input type="number" name="quantity" value="1" class="form-control" min="1" max="5"  />
       <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
       <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
