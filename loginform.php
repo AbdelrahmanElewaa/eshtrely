@@ -14,21 +14,33 @@
      <?php
      session_start();
      ?>
+<style>
+
+.e{
+color:red;
+}
+</style>
  </head>
  <body>
 
  <div class="container border">
    <h3 class="text-center">Login</h3>
                 <form class="form-group" action="#" method="post" onsubmit="return validate()">
-              Email <input class="form-control" type="text" autocomplete="off" placeholder="Email" name="email" id="emailID"><br>
-             <div id="emailerror">
+              Email <b style="color:red;">*</b>
+              <input class="form-control" type="text" autocomplete="off" placeholder="Email" name="email" id="emailID"><br>
+             <div id="emailerror" class="e">
 
              </div>
-              Password
+             <div id="emailerror2" class="e">
+
+             </div>
+              Password <b style="color:red;">*</b>
               <input class="form-control" type="password" autocomplete="off" placeholder="Password" name="password" id="passwordID">
-              <div id="passworderror"> 
+              <div id="passworderror" class="e"> 
 
               </div>
+     
+              <div id="userDoesntExist" class="e"></div>
               <input type="submit" id="loginm" name="loginsubmit" class="btn btn-primary loginmodal" value="Log in">
               
             </form>
@@ -81,12 +93,14 @@ $password=$_POST['password'];
 
 if(filter_var($sanitizedEmail,FILTER_VALIDATE_EMAIL))
 {
+  echo" <script>
+  document.getElementById('emailerror2').innerHTML='';
+  </script>";
 $conn= new mysqli("localhost","root","","eshtrely");
 $sql="SELECT * FROM users WHERE email='".$_POST['email']."' and password='".$_POST['password']."'";
 $result= mysqli_query($conn,$sql);
-if($result)
+if($row= mysqli_fetch_array($result))
 {
-$row= mysqli_fetch_array($result);
 $_SESSION['id']=$row[0];
 $_SESSION['name']=$row[1];
 $_SESSION['email']=$row[2];
@@ -106,13 +120,13 @@ else{
 
 }
 else{
-echo"error";
+echo"<script> document.getElementById('userDoesntExist').innerHTML='User Doesnt Exist... Try Again'</script>";
 }
 
 }
 else{
   echo" <script>
-  document.getElementById('emailerror').innerHTML='Enter your Email correctly';
+  document.getElementById('emailerror2').innerHTML='Enter your Email correctly';
   </script>";
 }
 

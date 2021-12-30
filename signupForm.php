@@ -9,29 +9,36 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/signform.css">
     <link rel="stylesheet" href="css/all.min.css">
-    
+    <style>
+.error
+{
+    color:red;
+}
+
+</style>
 </head>
 <body>
     <!-- <span class="border border-success"></span> -->
-<div class="container border border-success formcontainer text-center">
-    <h3><b> Create Your Account</b></h3>
+<div class="container border border-success formcontainer ">
+    <h3 class="text-center"><b> Create Your Account</b></h3>
     <form  action="" method="post" class="form-group f" enctype="multipart/form-data" onsubmit="return validate()">
         
 <input type="text" placeholder="Full Name" name="name" class="form-control" id="name">
-<div id="nameerror"></div>
+<div id="nameerror" class="error"></div>
 <input type="email" placeholder="Email Address" name="email" class="form-control" id="email">
-<div id="emailerror"></div>
+<div id="emailerror"class="error"></div>
 <input type="text" placeholder="Phone Number" name="phone" class="form-control" id="phone">
-<div id="phoneerror"></div>
+<div id="phoneerror"class="error"></div>
 <input type="text" placeholder="Address" name="address" class="form-control"id="address">
-<div id="addresserror"></div>
+<div id="addresserror"class="error"></div>
 
-<input type="password" placeholder="Password" name="password" class="form-control" id="password"><br>
-<div id="passworderror"></div>
-<b id="uploadtext">Upload your profile photo:<b><br>
-<input type="file" name="photo"  class="ProfilePhoto"><br>
+<input type="password" placeholder="Password" name="password" class="form-control" id="password">
+<div id="passworderror"class="error"></div>
+<div id="emailexists"class="error"></div><br>
+<b id="uploadtext" style="margin-left:220px">Upload your profile photo:<b><br>
+<input type="file" style="margin-left:220px"name="photo"  class="ProfilePhoto"><br>
 <input type="hidden" value="customer" name="role" >
-<input type="submit" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control">
+<input type="submit" style="margin-left:300px" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control">
     </form>
 </div>
 </body>
@@ -109,7 +116,17 @@ if(isset($_POST['signup'])){
     
   
 $conn= new mysqli("localhost","root","","eshtrely");
- 
+
+ $checkemail="SELECT * FROM users WHERE email='".$_POST['email']."' ";
+ $resultcheck= mysqli_query($conn,$checkemail);
+ if($row=mysqli_fetch_array($resultcheck))
+ {
+  
+  echo "<script> document.getElementById('emailexists').innerHTML='There is Account with That Email'
+  </script>";
+ }
+ else{
+     
 $sql= "INSERT INTO users (name,email,phone,address,password,role,photo) VALUES ('".$_POST['name']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['address']."','".$_POST['password']."','".$_POST['role']."','".$_FILES['photo']['name']."')";
 $result= mysqli_query($conn,$sql);
  if($result)
@@ -144,6 +161,9 @@ else{
      echo "error";
  }
 }
+   
+}
+
 
 ?>
 
