@@ -25,7 +25,11 @@ include('includes/navbar.php');
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+<!-- Add user -->
 
+<a href="adduser.php" style="font-size:15px; margin-right:30px; margin-bottom:15px; float:right; color:red;"><i class="fas fa-user-plus"></i>Add Users</a>
+
+<!-- end add user -->
     <!-- Main content -->
     <!-- dah elhnktb feh elmain things-->
     <table class="table" >
@@ -59,7 +63,7 @@ for($i=0;$i<$rows;$i++)
           {
         echo "<td>".$row[$j]."</td>";
            }
-           echo"<td> <a href='adminEditUser.php?userid=".$row[7]."' type='submit'  ><i class='fas fa-edit'>  </i></a>   <a href='adminDeleteUser.php?userid=".$row[7]."'><i class='fas fa-trash'></i></a> </td>"; 
+           echo"<td> <a href='adminEditUser.php?userid=".$row[7]."' type='submit' ><i class='fas fa-edit'>  </i></a>   <a href='adminDeleteUser.php?userid=".$row[7]."' style='color:green;'><i class='fas fa-trash'></i></a> </td>"; 
     echo"</tr>";
 }
 
@@ -73,7 +77,7 @@ include('includes/sourcesJS.php');
 ?>
 
     <!-- /.content -->
-  </div>
+  <!-- </div> -->
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>

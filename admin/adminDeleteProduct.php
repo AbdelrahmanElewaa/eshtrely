@@ -15,13 +15,8 @@
   
   <!-- -------------------------------includes -------------------------------->
  <?php
- include('includes/sourcesCSS.php');
- // the include of the side bar has to be before any include that has an html output so the session can start and put its values
- include('includes/sidebar.php');
- include('includes/navbar.php');
- 
-
- include('includes/main.php');
+include('includes/sourcesCSS.php');
+include('includes/session.php');
  ?>
  <?php
  $conn= new mysqli("localhost","root","","eshtrely");

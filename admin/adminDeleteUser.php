@@ -16,19 +16,16 @@
   <!-- -------------------------------includes -------------------------------->
  <?php
  include('includes/sourcesCSS.php');
+ include('includes/session.php');
  // the include of the side bar has to be before any include that has an html output so the session can start and put its values
- include('includes/sidebar.php');
- include('includes/navbar.php');
  
-
- include('includes/main.php');
  ?>
  <?php
  $conn= new mysqli("localhost","root","","eshtrely");
  $sql="DELETE FROM users WHERE id='".$_GET['userid']."'";
  $result= mysqli_query($conn,$sql);
   
-     header('Location:admin/users.php');
+     header('Location:users.php');
  
  include('includes/sourcesJS.php');
  ?>
