@@ -1,0 +1,50 @@
+
+.container
+{
+margin-top: 0px;
+margin-right:600px;
+width:500px;
+}
+.border{
+     
+    border-radius: 3px;
+}
+
+h3{
+    margin-top:20px;
+    margin-left:15px;
+}
+
+input  
+{
+    margin-top: 25px;
+    margin-left: 10px;
+    
+}
+.roleselect{
+
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+#firstinput
+{
+    margin-top: 10px;
+}
+ 
+#uploadtext
+{
+    margin-top: 40px;
+    margin-left: 50px;
+}
+.ProfilePhoto
+{
+    margin-top: 10px;
+    margin-left: 50px;
+}
+ 
+ .addbtn
+ {
+     margin-top:20;
+     margin-left:400;
+ }
