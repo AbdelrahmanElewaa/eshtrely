@@ -75,43 +75,66 @@ $conn= new mysqli("localhost","root","","eshtrely");
 $sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE productname LIKE '%$searchKey%'";
 $result=mysqli_query($conn,$sql) or die($conn->error);
 $rows=$result->num_rows;
+ foreach($result as $row)
+   {
 echo '<div >
     <div >
     <div >'; 
     if(empty($rows)){
     	echo "<h1>No results found</h1>";
     }
-    else{
-for($i=0;$i<$rows;$i++)
-{
-    $row= $result->fetch_array(MYSQLI_NUM);
-      
-    for($j=0;$j<5;$j++){
-            if ($j==0) {
-                echo "<img src= ".$row[0]." width='100' height='100'><br>";
+    else {?>
+         <div class="col-md-3">
+    <form method="post">
+     <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
+      <img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /><br />
 
-            }
-            else{
-                echo $row[$j]."<br>";
-            }
+      <h4 class="text-info"><?php echo $row["productname"]; ?></h4>
+
+      <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
+
+      <input type="text" name="quantity" value="1" class="form-control" />
+      <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
+      <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
+      <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
+      <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
+     </div>
+    </form>
+   </div>
+   <?php
+   }
+   // for($i=0;$i<$rows;$i++)
+// {
+//     $row= $result->fetch_array(MYSQLI_NUM);
+      
+//     for($j=0;$j<5;$j++){
+//             if ($j==0) {
+//                 echo "<img src= images/products/".$row[0]." width='100' height='100'><br>";
+
+//             }
+//             else{
+//                 echo $row[$j]."<br>";
+//             }
 
 
   
-        }
+//         }
 
 
- echo "</div>"; 
+//  echo "</div>"; 
 
  
-}
+// }
 echo "
-      </div>"; 
+      </div>";   
       }      
 
+   ?>
 
 
 
-?>
+
+
 </div>
 	
 </body>
