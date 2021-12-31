@@ -1,7 +1,7 @@
 <?php 
 
 //index.php
-
+include('mainIncludes/mainNavbar.php');
 $connect = new PDO("mysql:host=localhost;dbname=test", "root", "");
 
 $message = '';
@@ -106,17 +106,29 @@ if(isset($_GET["clearall"]))
 <!DOCTYPE html>
 <html>
  <head>
-  <title>Webslesson Demo | Simple PHP Mysql Shopping Cart</title>
+  <title>Shopping Cart</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/search.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
  </head>
  <body>
-  <a href="index.php">home</a>
+ </nav><!-- 
+  <a href="index.php">home</a> -->
   <br />
   <div class="container">
    <br />
-   <h3 align="center">Simple PHP Mysql Shopping Cart using Cookies</h3><br />
+   <h3 align="center">Your Cart</h3><br />
    <br /><br />
   
    
