@@ -94,6 +94,7 @@ $('#myModal').modal({
 <!--Search Bar-->
 
     <div class="topnav">
+        <a href="cart2.php"> Your Cart </a>
     <div class="search-container">
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">
@@ -106,45 +107,93 @@ $('#myModal').modal({
    
 
 
-$cartarray= array();
-
 $conn= new mysqli("localhost","root","","eshtrely");
-$sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE producttype='electronics'";
-$result=mysqli_query($conn,$sql);
-$rows=$result->num_rows;
-echo '<div class="container">
-    <div class="row">
-    <div class="col-sm-3">'; 
-for($i=0;$i<$rows;$i++)
+
+  $sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE producttype = 'electronics' ";
+  $result=mysqli_query($conn,$sql);
+  $message = '';
+
+
+if(isset($_POST["add_to_cart"]))
 {
-    $row= $result->fetch_array(MYSQLI_NUM);
-      
-    for($j=0;$j<5;$j++){
-            if ($j==0) {
-                echo "<img src= ".$row[0]." width='100' height='100'><br>";
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
 
-            }
-            else{
-                echo $row[$j]."<br>";
-            }
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
 
+ $item_id_list = array_column($cart_data, 'item_id');
 
-  
-        }
-           
-
-//  echo   "<button name=\"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
-//echo "<input type='submit' value='Add to Cart'>";
-
-
- echo "</div>"; 
+ if(in_array($_POST["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
+  }
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_POST["hidden_id"],
+   'item_name'   => $_POST["hidden_name"],
+   'item_price'  => $_POST["hidden_price"],
+   'item_quantity'  => $_POST["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
 
  
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ header("location:index.php?success=1");
 }
-echo "
-      </div>";              
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ ';
+  echo $message; 
+  }   
+  
 
 
+
+  //$rows=$result->num_rows;
+   foreach($result as $row)
+   {              
+
+
+   ?>
+   <div class="col-md-3">
+    <form method="post">
+     <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
+      <img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /><br />
+
+      <h4 class="text-info"><?php echo $row["productname"]; ?></h4>
+
+      <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
+
+      <input type="number" name="quantity" value="1" class="form-control" min="1" max="5"  />
+      <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
+      <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
+      <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
+      <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
+     </div>
+    </form>
+   </div>
+   <?php
+   }
    ?>
    </div>
 

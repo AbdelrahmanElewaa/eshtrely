@@ -92,11 +92,12 @@ $('#myModal').modal({
         </div>
       </div>
    </div> -->
+
    <!--Search Bar-->
 
     <div class="topnav">
-    <div class="search-container">
-        <a href="cart2.php"> cart </a>
+        <a href="cart2.php"> Your Cart </a>
+    <div class="search-container">  
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
@@ -104,6 +105,7 @@ $('#myModal').modal({
     </form>
     </div>
     </div>
+    
   <?php
 
  $conn= new mysqli("localhost","root","","eshtrely");
@@ -170,47 +172,7 @@ if(isset($_GET["success"]))
 
   //$rows=$result->num_rows;
    foreach($result as $row)
-   {
-
-// $cartarray= array();
-
-// $conn= new mysqli("localhost","root","","eshtrely");
-// $sql="SELECT productimage,productname,productid,productprice, rating FROM products ";
-// $result=mysqli_query($conn,$sql);
-// $rows=$result->num_rows;
-// echo '<div class="container">
-//     <div class="row">
-//     <div class="col-sm-3">'; 
-// for($i=0;$i<$rows;$i++)
-// {
-//     $row= $result->fetch_array(MYSQLI_NUM);
-      
-//     for($j=0;$j<5;$j++)
-//           {
-//             if ($j==0) {
-//                 echo "<img src= images/products/".$row[0]." width='100' height='100'><br>";
-
-//             }
-//             else{
-//                 echo $row[$j]."<br>";
-//             }
-
-
-  
-    
-      
-//            }
-           
-
-//  echo   "<button  onclick=\"window.location.href='cart2.php'\" name= \"addtocart.$i\"type=\"addtocart\">Add to Cart</button>";
- 
-//  // echo "<input type='submit' value='Add to Cart'>";
-//  echo "</div>"; 
- 
- 
-// }
-// echo "
-//       </div>";              
+   {              
 
 
    ?>
