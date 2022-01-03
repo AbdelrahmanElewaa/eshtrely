@@ -38,6 +38,76 @@ if (!empty($_SESSION['name']))
                 </div>
                 </div></nav>';
     
+     $conn= new mysqli("localhost","root","","eshtrely");
+
+  $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
+  $result=mysqli_query($conn,$sql);
+  $message = '';
+
+
+if(isset($_POST["add_to_cart"]))
+{
+// if (!empty($_SESSION['name']))
+// {
+
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
+
+ $item_id_list = array_column($cart_data, 'item_id');
+
+ if(in_array($_POST["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
+
+  }
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_POST["hidden_id"],
+   'item_name'   => $_POST["hidden_name"],
+   'item_price'  => $_POST["hidden_price"],
+   'item_quantity'  => $_POST["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
+
+ 
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ 
+ if (!empty($_SESSION['name']))
+ {
+// echo "<scrip>window.location.href='index.php'</script>";
+  header("location:index.php?success=1");
+ }
+else{
+ header("location:signupForm.php");
+ }
+}
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ ';
+  echo $message; 
+  }  
 
 }
 else{
@@ -50,9 +120,6 @@ else{
         <!-- ------------------------login form-------------------------------------- -->
         <a href="loginform.php"><input type="submit" id="myInput"class="btn btn-primary login"  value="Login"></a>
       </nav>
-
-
-     
 
 
       <!------------------------------------- End of login form ------------------->
@@ -70,6 +137,7 @@ if(isset($_POST['logout']))
   $_SESSION['name']="";
   $_SESSION['photo']="";
   header('Location:index.php');
+  setcookie("shopping_cart", "", time() - 3600);
 }
 
 ?>
@@ -92,12 +160,12 @@ $('#myModal').modal({
         </div>
       </div>
    </div> -->
-
    <!--Search Bar-->
 
     <div class="topnav">
-        <a href="cart2.php"> Your Cart </a>
-    <div class="search-container">  
+        <a href="cart2.php"> cart </a>
+    <div class="search-container">
+        
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
@@ -105,18 +173,20 @@ $('#myModal').modal({
     </form>
     </div>
     </div>
-    
-  <?php
+<?php
 
- $conn= new mysqli("localhost","root","","eshtrely");
+  $conn= new mysqli("localhost","root","","eshtrely");
 
-  $sql="SELECT productimage,productname,productid,productprice, rating FROM products ";
+  $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
   $message = '';
 
 
 if(isset($_POST["add_to_cart"]))
 {
+// if (!empty($_SESSION['name']))
+// {
+
  if(isset($_COOKIE["shopping_cart"]))
  {
   $cookie_data = stripslashes($_COOKIE['shopping_cart']);
@@ -138,6 +208,7 @@ if(isset($_POST["add_to_cart"]))
    {
     $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
    }
+
   }
  }
  else
@@ -154,7 +225,9 @@ if(isset($_POST["add_to_cart"]))
  
  $item_data = json_encode($cart_data);
  setcookie('shopping_cart', $item_data, time() + (86400 * 30));
- header("location:index.php?success=1");
+ 
+ header("location:signupForm.php");
+
 }
 if(isset($_GET["success"]))
 {
@@ -163,29 +236,22 @@ if(isset($_GET["success"]))
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     Item Added into Cart
  </div>
- ';
-  echo $message; 
-  }   
-  
-
-
-
-  //$rows=$result->num_rows;
+ '; 
+  }  
+   
    foreach($result as $row)
-   {              
-
-
-   ?>
+   {
+  
+?>
    <div class="col-md-3">
     <form method="post">
      <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
-      <img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /><br />
-
+     <a href="productinfo.php"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
       <h4 class="text-info"><?php echo $row["productname"]; ?></h4>
 
       <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
 
-      <input type="number" name="quantity" value="1" class="form-control" min="1" max="5"  />
+      <input type="number" name="quantity" value="1" class="form-control" min="1" max="<?php echo $row["quantity"]?>" />
       <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
       <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
@@ -196,6 +262,7 @@ if(isset($_GET["success"]))
    <?php
    }
    ?>
+
    </div>
 
 
