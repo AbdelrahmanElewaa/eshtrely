@@ -36,7 +36,76 @@ if (!empty($_SESSION['name']))
                 <?php
                 </div>
                 </div></nav>';
-    
+    $conn= new mysqli("localhost","root","","eshtrely");
+
+  $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
+  $result=mysqli_query($conn,$sql);
+  $message = '';
+
+
+if(isset($_POST["add_to_cart"]))
+{
+// if (!empty($_SESSION['name']))
+// {
+
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
+
+ $item_id_list = array_column($cart_data, 'item_id');
+
+ if(in_array($_POST["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
+
+  }
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_POST["hidden_id"],
+   'item_name'   => $_POST["hidden_name"],
+   'item_price'  => $_POST["hidden_price"],
+   'item_quantity'  => $_POST["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
+
+ 
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ 
+ if (!empty($_SESSION['name']))
+ {
+// echo "<scrip>window.location.href='index.php'</script>";
+  header("location:index.php?success=1");
+ }
+else{
+ header("location:signupForm.php");
+ }
+}
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ ';
+  echo $message; 
+  }  
 
 }
 else{
@@ -74,20 +143,26 @@ else{
     </div>
     </div>
 <?php
+if(isset($_GET['search'])){
 $searchKey=$_GET['search'];
 $conn= new mysqli("localhost","root","","eshtrely");
 $sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE productname LIKE '%$searchKey%'";
 $result=mysqli_query($conn,$sql) or die($conn->error);
 $rows=$result->num_rows;
- foreach($result as $row)
+ 
+if(empty($rows)){
+        echo "<h1>No results found</h1>";
+    }
+
+ else{
+  foreach($result as $row)
    {
+
 echo '<div >
     <div >
     <div >'; 
-    if(empty($rows)){
-        echo "<h1>No results found</h1>";
-    }
-    else {?>
+    
+    ?>
          <div class="col-md-3">
     <form method="post">
      <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
@@ -107,6 +182,7 @@ echo '<div >
    </div>
    <?php
    }
+ }
    // for($i=0;$i<$rows;$i++)
 // {
 //     $row= $result->fetch_array(MYSQLI_NUM);
