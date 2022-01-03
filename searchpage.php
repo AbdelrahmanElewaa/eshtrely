@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/search.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 <?php 
@@ -62,6 +65,7 @@ else{
 <!--Search Bar-->
 
     <div class="topnav">
+        <a href="cart2.php"> Your Cart </a>
     <div class="search-container">
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">
@@ -81,7 +85,7 @@ echo '<div >
     <div >
     <div >'; 
     if(empty($rows)){
-    	echo "<h1>No results found</h1>";
+        echo "<h1>No results found</h1>";
     }
     else {?>
          <div class="col-md-3">
@@ -136,6 +140,10 @@ echo "
 
 
 </div>
-	
+    
 </body>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/all.min.js"></script>
+<script src="js/validation.js"></script>
 </html>
