@@ -37,8 +37,8 @@ if (!empty($_SESSION['name']))
                 <?php
                 </div>
                 </div></nav>';
-    
-     $conn= new mysqli("localhost","root","","eshtrely");
+    setcookie("proinfo", "", time() - 3600);
+       $conn= new mysqli("localhost","root","","eshtrely");
 
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
@@ -174,7 +174,7 @@ $('#myModal').modal({
     </div>
     </div>
 <?php
-
+ 
   $conn= new mysqli("localhost","root","","eshtrely");
 
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
@@ -244,9 +244,14 @@ if(isset($_GET["success"]))
   
 ?>
    <div class="col-md-3">
-    <form method="post">
+    <form method="get">
+
+
+
      <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
-     <a href="productinfo.php"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
+
+     <a type="hidden" name="hidden_name" href="productinfo.php?id=<?php echo $row['productid']; ?>"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
+
       <h4 class="text-info"><?php echo $row["productname"]; ?></h4>
 
       <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
@@ -255,6 +260,9 @@ if(isset($_GET["success"]))
       <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
       <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
+     <!--  <input type="submit" name="view_info" style="margin-top:5px;" class="btn btn-info" value="View Info" /> -->
+     <a href="productinfo.php?id=<?php echo $row['productid'];?>" style= "display: inline-block ; background-color:purple ; color:white; text-align: center; padding:10px 10px;">View Info</a>
+
       <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
      </div>
     </form>
