@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/search.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-<?php 
+
+        <?php
 include('mainIncludes/mainNavbar.php');
-include('admin/includes/session.php');
+session_start();
 if (!empty($_SESSION['name']))
 {
   echo '<div class="dropdown show">
@@ -36,14 +37,15 @@ if (!empty($_SESSION['name']))
                 <?php
                 </div>
                 </div></nav>';
-    $conn= new mysqli("localhost","root","","eshtrely");
+    // setcookie("proinfo", "", time() - 3600);
+       $conn= new mysqli("localhost","root","","eshtrely");
 
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
   $message = '';
 
 
-if(isset($_POST["add_to_cart"]))
+if(isset($_GET["add_to_cart"]))
 {
 // if (!empty($_SESSION['name']))
 // {
@@ -61,13 +63,13 @@ if(isset($_POST["add_to_cart"]))
 
  $item_id_list = array_column($cart_data, 'item_id');
 
- if(in_array($_POST["hidden_id"], $item_id_list))
+ if(in_array($_GET["hidden_id"], $item_id_list))
  {
   foreach($cart_data as $keys => $values)
   {
-   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
    {
-    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_GET["quantity"];
    }
 
   }
@@ -75,10 +77,10 @@ if(isset($_POST["add_to_cart"]))
  else
  {
   $item_array = array(
-   'item_id'   => $_POST["hidden_id"],
-   'item_name'   => $_POST["hidden_name"],
-   'item_price'  => $_POST["hidden_price"],
-   'item_quantity'  => $_POST["quantity"]
+   'item_id'   => $_GET["hidden_id"],
+   'item_name'   => $_GET["hidden_name"],
+   'item_price'  => $_GET["hidden_price"],
+   'item_quantity'  => $_GET["quantity"]
   );
   $cart_data[] = $item_array;
  }
@@ -120,103 +122,171 @@ else{
       </nav>
 
 
-     
-
-
       <!------------------------------------- End of login form ------------------->
 
 
       <?php
 
-}   /// close curly bra
+}   /// close curly bracket of the else above
+
+
+// logout operations
+ 
+if(isset($_POST['logout']))
+{
+  $_SESSION['name']="";
+  $_SESSION['photo']="";
+  header('Location:index.php');
+  setcookie("shopping_cart", "", time() - 3600);
+}
+
 ?>
-</nav>
-<!--Search Bar-->
+   
+      <script>
+// $('#myModal').on('shown.bs.modal', function () {
+//   $('#myInput').trigger('focus')
+// })    
+$('#myModal').modal({
+    backdrop: 'static',
+    keyboard: false
+})
+    </script>
+   
+
+   <!-- <div class="container">
+     <div class="row">
+         <div class="col-md-6">
+            
+        </div>
+      </div>
+   </div> -->
+   <!--Search Bar-->
 
     <div class="topnav">
-        <a href="cart2.php"> Your Cart </a>
+        <a href="cart2.php">Your Cart</a>
     <div class="search-container">
+        
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
+
     </form>
     </div>
     </div>
 <?php
+ 
+  $conn= new mysqli("localhost","root","","eshtrely");
+
+  $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
+  $result=mysqli_query($conn,$sql);
+  $message = '';
+
+
+if(isset($_GET["add_to_cart"]))
+{
+// if (!empty($_SESSION['name']))
+// {
+
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
+
+ $item_id_list = array_column($cart_data, 'item_id');
+
+ if(in_array($_GET["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
+
+  }
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_GET["hidden_id"],
+   'item_name'   => $_GET["hidden_name"],
+   'item_price'  => $_GET["hidden_price"],
+   'item_quantity'  => $_GET["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
+
+ 
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ 
+ header("location:signupForm.php");
+
+}
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ '; 
+}  
 if(isset($_GET['search'])){
 $searchKey=$_GET['search'];
 $conn= new mysqli("localhost","root","","eshtrely");
-$sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE productname LIKE '%$searchKey%'";
+$sql="SELECT productimage,productname,productid,productprice, rating, quantity FROM products WHERE productname LIKE '%$searchKey%'";
 $result=mysqli_query($conn,$sql) or die($conn->error);
 $rows=$result->num_rows;
  
 if(empty($rows)){
         echo "<h1>No results found</h1>";
     }
-
- else{
-  foreach($result as $row)
+    else{
+   
+   foreach($result as $row)
    {
+  
+?>
+   <div class="col-md-3">
+    <form method="get">
 
-echo '<div >
-    <div >
-    <div >'; 
-    
-    ?>
-         <div class="col-md-3">
-    <form method="post">
+
+
      <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
-      <img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /><br />
+
+     <a type="hidden" name="hidden_name" href="productinfo.php?id=<?php echo $row['productid']; ?>"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
 
       <h4 class="text-info"><?php echo $row["productname"]; ?></h4>
 
       <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
 
-      <input type="text" name="quantity" value="1" class="form-control" />
+      <input type="number" name="quantity" value="1" class="form-control" min="1" max="<?php echo $row['quantity'];?>" />
       <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
       <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
+     <!--  <input type="submit" name="view_info" style="margin-top:5px;" class="btn btn-info" value="View Info" /> -->
+     <a href="productinfo.php?id=<?php echo $row['productid'];?>" style= "display: inline-block ; background-color:purple ; color:white; text-align: center; padding:10px 10px;">View Info</a>
+
       <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
      </div>
     </form>
    </div>
    <?php
    }
- }
-   // for($i=0;$i<$rows;$i++)
-// {
-//     $row= $result->fetch_array(MYSQLI_NUM);
-      
-//     for($j=0;$j<5;$j++){
-//             if ($j==0) {
-//                 echo "<img src= images/products/".$row[0]." width='100' height='100'><br>";
-
-//             }
-//             else{
-//                 echo $row[$j]."<br>";
-//             }
-
-
-  
-//         }
-
-
-//  echo "</div>"; 
-
- 
-// }
-echo "
-      </div>";   
-      }      
-
+}
+}
    ?>
 
+   </div>
 
 
-
-
-</div>
-    
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>

@@ -26,7 +26,7 @@ if (!empty($_SESSION['name']))
 
   if (isset($_POST['save_review'])) {
 
-  	$time=date("l jS \of F Y h:i:s A");
+    $time=date("l jS \of F Y h:i:s A");
     $review= $_POST['user_review'];
     $conn= new mysqli("localhost","root","","eshtrely");
     $sql= "INSERT INTO  `reviews` ( `userid`,`username`,`userimage`, `productid`, `reviewdate`, `review`) VALUES ('".$_SESSION['id']."','".$_SESSION['name']."','".$_SESSION['photo']."','".$_GET['id']."','".$time."', '".$review."'  )";
@@ -58,13 +58,20 @@ else{
       <?php
 
 }   
+if(isset($_POST['logout']))
+{
+  $_SESSION['name']="";
+  $_SESSION['photo']="";
+  header('Location:index.php');
+  setcookie("shopping_cart", "", time() - 3600);
+}
 function displayReview(){
-	$id = $_GET['id'];
-	  $conn= new mysqli("localhost","root","","eshtrely");
+  $id = $_GET['id'];
+    $conn= new mysqli("localhost","root","","eshtrely");
   $sql="SELECT userimage,username,review,reviewdate FROM reviews where productid = '".$id."' ";
   $result=mysqli_query($conn,$sql);
   while ($row = mysqli_fetch_array($result)) {
-    echo "<img src=images/".$row[0]." width=45px height=50px> ".$row[1];
+    echo "<img src= 'images/".$row[0]."' width=45px height=50px> ".$row[1];
     echo "<h5>".$row[2]."</h5>";
     echo "<h6>".$row[3]."</h6>";
     echo"<br><br>";
@@ -79,7 +86,7 @@ function displayReview(){
   <!DOCTYPE html>
   <html>
   <head>
-  	 <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>productinfo</title>
@@ -137,7 +144,7 @@ function displayReview(){
   <form method="post">
 <div class="form-group">
  <h4> Write review here</h4>
-              <input name="user_review" class="form-control" placeholder="Type Review Here" type="text" />
+              <input name="user_review" class="form-control" placeholder="Type Review Here" style="height: 50px;" type="text" />
             </div>
             <div class="form-group text-center mt-4">
               <input type="submit" class="btn btn-primary" name="save_review" value="Submit" />

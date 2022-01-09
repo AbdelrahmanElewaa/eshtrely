@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/search.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js%22%3E"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js%22%3E"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -37,15 +37,15 @@ if (!empty($_SESSION['name']))
                 <?php
                 </div>
                 </div></nav>';
-    
-$conn= new mysqli("localhost","root","","eshtrely");
+    // setcookie("proinfo", "", time() - 3600);
+       $conn= new mysqli("localhost","root","","eshtrely");
 
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
   $message = '';
 
 
-if(isset($_POST["add_to_cart"]))
+if(isset($_GET["add_to_cart"]))
 {
 // if (!empty($_SESSION['name']))
 // {
@@ -63,13 +63,13 @@ if(isset($_POST["add_to_cart"]))
 
  $item_id_list = array_column($cart_data, 'item_id');
 
- if(in_array($_POST["hidden_id"], $item_id_list))
+ if(in_array($_GET["hidden_id"], $item_id_list))
  {
   foreach($cart_data as $keys => $values)
   {
-   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
    {
-    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_GET["quantity"];
    }
 
   }
@@ -77,10 +77,10 @@ if(isset($_POST["add_to_cart"]))
  else
  {
   $item_array = array(
-   'item_id'   => $_POST["hidden_id"],
-   'item_name'   => $_POST["hidden_name"],
-   'item_price'  => $_POST["hidden_price"],
-   'item_quantity'  => $_POST["quantity"]
+   'item_id'   => $_GET["hidden_id"],
+   'item_name'   => $_GET["hidden_name"],
+   'item_price'  => $_GET["hidden_price"],
+   'item_quantity'  => $_GET["quantity"]
   );
   $cart_data[] = $item_array;
  }
@@ -92,7 +92,7 @@ if(isset($_POST["add_to_cart"]))
  if (!empty($_SESSION['name']))
  {
 // echo "<scrip>window.location.href='index.php'</script>";
-  header("location:H&G.php?success=1");
+  header("location:index.php?success=1");
  }
 else{
  header("location:signupForm.php");
@@ -106,7 +106,7 @@ if(isset($_GET["success"]))
     Item Added into Cart
  </div>
  ';
- 
+  echo $message; 
   }  
 
 }
@@ -120,9 +120,6 @@ else{
         <!-- ------------------------login form-------------------------------------- -->
         <a href="loginform.php"><input type="submit" id="myInput"class="btn btn-primary login"  value="Login"></a>
       </nav>
-
-
-     
 
 
       <!------------------------------------- End of login form ------------------->
@@ -163,33 +160,33 @@ $('#myModal').modal({
         </div>
       </div>
    </div> -->
-
-
-<!--Search Bar-->
+   <!--Search Bar-->
 
     <div class="topnav">
-        <a href="cart2.php"> Your Cart </a>
+        <a href="cart2.php">Your Cart</a>
     <div class="search-container">
+        
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
+
     </form>
     </div>
     </div>
+<?php
+ 
+  $conn= new mysqli("localhost","root","","eshtrely");
 
-   <?php
-   
-
-
-$conn= new mysqli("localhost","root","","eshtrely");
-
-  $sql="SELECT productimage,productname,productid,productprice, rating FROM products WHERE producttype = 'food' ";
+  $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products WHERE producttype = 'food' ";
   $result=mysqli_query($conn,$sql);
   $message = '';
 
 
-if(isset($_POST["add_to_cart"]))
+if(isset($_GET["add_to_cart"]))
 {
+// if (!empty($_SESSION['name']))
+// {
+
  if(isset($_COOKIE["shopping_cart"]))
  {
   $cookie_data = stripslashes($_COOKIE['shopping_cart']);
@@ -203,23 +200,24 @@ if(isset($_POST["add_to_cart"]))
 
  $item_id_list = array_column($cart_data, 'item_id');
 
- if(in_array($_POST["hidden_id"], $item_id_list))
+ if(in_array($_GET["hidden_id"], $item_id_list))
  {
   foreach($cart_data as $keys => $values)
   {
-   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
    {
     $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
    }
+
   }
  }
  else
  {
   $item_array = array(
-   'item_id'   => $_POST["hidden_id"],
-   'item_name'   => $_POST["hidden_name"],
-   'item_price'  => $_POST["hidden_price"],
-   'item_quantity'  => $_POST["quantity"]
+   'item_id'   => $_GET["hidden_id"],
+   'item_name'   => $_GET["hidden_name"],
+   'item_price'  => $_GET["hidden_price"],
+   'item_quantity'  => $_GET["quantity"]
   );
   $cart_data[] = $item_array;
  }
@@ -227,10 +225,10 @@ if(isset($_POST["add_to_cart"]))
  
  $item_data = json_encode($cart_data);
  setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ 
  header("location:signupForm.php");
 
 }
-
 if(isset($_GET["success"]))
 {
  $message = '
@@ -238,32 +236,33 @@ if(isset($_GET["success"]))
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     Item Added into Cart
  </div>
- ';
-  echo $message; 
-  }   
-  
-
-
-
-  //$rows=$result->num_rows;
+ '; 
+  }  
+   
    foreach($result as $row)
-   {              
-
-
-   ?>
+   {
+  
+?>
    <div class="col-md-3">
-    <form method="post">
+    <form method="get">
+
+
+
      <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
-      <img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /><br />
+
+     <a type="hidden" name="hidden_name" href="productinfo.php?id=<?php echo $row['productid']; ?>"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
 
       <h4 class="text-info"><?php echo $row["productname"]; ?></h4>
 
       <h4 class="text-danger">$ <?php echo $row["productprice"]; ?></h4>
 
-      <input type="number" name="quantity" value="1" class="form-control" min="1" max="5"  />
+      <input type="number" name="quantity" value="1" class="form-control" min="1" max="<?php echo $row["quantity"]?>" />
       <input type="hidden" name="hidden_name" value="<?php echo $row["productname"]; ?>" />
       <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
+     <!--  <input type="submit" name="view_info" style="margin-top:5px;" class="btn btn-info" value="View Info" /> -->
+     <a href="productinfo.php?id=<?php echo $row['productid'];?>" style= "display: inline-block ; background-color:purple ; color:white; text-align: center; padding:10px 10px;">View Info</a>
+
       <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
      </div>
     </form>
@@ -271,7 +270,9 @@ if(isset($_GET["success"]))
    <?php
    }
    ?>
+
    </div>
+
 
 </body>
 <script src="js/jquery.js"></script>

@@ -163,7 +163,7 @@ $('#myModal').modal({
    <!--Search Bar-->
 
     <div class="topnav">
-        <a href="cart2.php"> cart </a>
+        <a href="cart2.php">Your Cart</a>
     <div class="search-container">
         
     <form method='get' action='searchpage.php'>
