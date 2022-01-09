@@ -1,7 +1,7 @@
 <?php
 include('mainIncludes/mainNavbar.php');
 session_start();
-$message = '';
+
 
 if (!empty($_SESSION['name']))
 {
@@ -29,7 +29,7 @@ if (!empty($_SESSION['name']))
     $conn= new mysqli("localhost","root","","eshtrely");
     $sql= "INSERT INTO  `reviews` ( `userid`, `productid`, `review`) VALUES ('".$_SESSION['id']."','".$_GET['id']."', '".$review."'  )";
     if ($conn->query($sql)) {
-      echo "dehk";
+       echo "dehk";
     }
     else{
       echo  $sql."<br>".$conn->error;
@@ -74,6 +74,7 @@ else{
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
  
+
   </head>
   <body>
    </nav>
@@ -125,7 +126,25 @@ else{
               <input type="submit" class="btn btn-primary" name="save_review" value="Submit" />
      
             </div>
+<!-- habd -->
+<b><span id="average_rating">0.0</span> / 5</b>
+              </h1>
+              <div class="mb-3">
+                <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+              </div>
+              <h3><span id="total_review">0</span> Review</h3>
+            </div>
+<!-- habd -->
           </form> 
           </div>
+        </div>
   </body>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/all.min.js"></script>
+<script src="js/validation.js"></script>
   </html>
