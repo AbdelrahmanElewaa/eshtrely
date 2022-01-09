@@ -132,7 +132,7 @@ else{
 
 // logout operations
  
-if(isset($_GET['logout']))
+if(isset($_POST['logout']))
 {
   $_SESSION['name']="";
   $_SESSION['photo']="";
