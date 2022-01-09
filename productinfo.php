@@ -25,9 +25,11 @@ if (!empty($_SESSION['name']))
 
 
   if (isset($_POST['save_review'])) {
+
+  	$time=date("l jS \of F Y h:i:s A");
     $review= $_POST['user_review'];
     $conn= new mysqli("localhost","root","","eshtrely");
-    $sql= "INSERT INTO  `reviews` ( `userid`, `productid`, `review`) VALUES ('".$_SESSION['id']."','".$_GET['id']."', '".$review."'  )";
+    $sql= "INSERT INTO  `reviews` ( `userid`,`username`,`userimage`, `productid`, `reviewdate`, `review`) VALUES ('".$_SESSION['id']."','".$_SESSION['name']."','".$_SESSION['photo']."','".$_GET['id']."','".$time."', '".$review."'  )";
     if ($conn->query($sql)) {
        echo "dehk";
     }
@@ -35,6 +37,7 @@ if (!empty($_SESSION['name']))
       echo  $sql."<br>".$conn->error;
     }
   }
+
             }
 
 else{
@@ -55,6 +58,20 @@ else{
       <?php
 
 }   
+function displayReview(){
+	$id = $_GET['id'];
+	  $conn= new mysqli("localhost","root","","eshtrely");
+  $sql="SELECT userimage,username,review,reviewdate FROM reviews where productid = '".$id."' ";
+  $result=mysqli_query($conn,$sql);
+  while ($row = mysqli_fetch_array($result)) {
+    echo "<img src=images/".$row[0]." width=45px height=50px> ".$row[1];
+    echo "<h5>".$row[2]."</h5>";
+    echo "<h6>".$row[3]."</h6>";
+    echo"<br><br>";
+
+}
+}
+
 /// close curly bracket of the else above
   
 
@@ -126,6 +143,7 @@ else{
               <input type="submit" class="btn btn-primary" name="save_review" value="Submit" />
      
             </div>
+
 <!-- habd -->
 <b><span id="average_rating">0.0</span> / 5</b>
               </h1>
@@ -142,6 +160,7 @@ else{
           </form> 
           </div>
         </div>
+        <?php displayReview();  ?>
   </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
