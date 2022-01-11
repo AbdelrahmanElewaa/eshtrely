@@ -70,11 +70,13 @@ function displayReview(){
     $conn= new mysqli("localhost","root","","eshtrely");
   $sql="SELECT userimage,username,review,reviewdate FROM reviews where productid = '".$id."' ";
   $result=mysqli_query($conn,$sql);
+  echo "<div class='review'>";
   while ($row = mysqli_fetch_array($result)) {
-    echo "<img src= 'images/".$row[0]."' width=45px height=50px> ".$row[1];
-    echo "<h5>".$row[2]."</h5>";
-    echo "<h6>".$row[3]."</h6>";
+    echo "<img class='comment' src= 'images/".$row[0]."'> ".$row[1];
+    echo "<p class='solid' style='padding-top:10px;'>".$row[2]."</p>";
+    echo "<h6 class='time'>".$row[3]."</h6>";
     echo"<br><br>";
+    echo "</div>";
 
 }
 }
@@ -94,6 +96,7 @@ function displayReview(){
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/productinfo.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

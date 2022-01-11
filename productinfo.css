@@ -1,0 +1,16 @@
+.review p.solid{
+	border-style: solid;
+	height: 50px;
+	text-align: left;
+	border-radius: 5px;
+}
+h6.time{
+	text-align: right;
+}
+img.comment{
+	border-radius: 10px;
+	border: 1px solid;
+	padding: 5px;
+	width: 60px;
+	height: 60px;
+}

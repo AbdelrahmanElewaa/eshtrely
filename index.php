@@ -94,9 +94,7 @@ if(isset($_GET["add_to_cart"]))
 // echo "<scrip>window.location.href='index.php'</script>";
   header("location:index.php?success=1");
  }
-else{
- header("location:signupForm.php");
- }
+
 }
 if(isset($_GET["success"]))
 {
@@ -126,6 +124,64 @@ else{
 
 
       <?php
+
+
+      if(isset($_GET["add_to_cart"]))
+{
+// if (!empty($_SESSION['name']))
+// {
+
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
+
+ $item_id_list = array_column($cart_data, 'item_id');
+
+ if(in_array($_GET["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
+
+  }
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_GET["hidden_id"],
+   'item_name'   => $_GET["hidden_name"],
+   'item_price'  => $_GET["hidden_price"],
+   'item_quantity'  => $_GET["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
+
+ 
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ 
+ header("location:signupForm.php");
+
+}
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ '; 
+  }
 
 }   /// close curly bracket of the else above
 
@@ -182,62 +238,62 @@ $('#myModal').modal({
   $message = '';
 
 
-if(isset($_GET["add_to_cart"]))
-{
-// if (!empty($_SESSION['name']))
+// if(isset($_GET["add_to_cart"]))
 // {
+// // if (!empty($_SESSION['name']))
+// // {
 
- if(isset($_COOKIE["shopping_cart"]))
- {
-  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+//  if(isset($_COOKIE["shopping_cart"]))
+//  {
+//   $cookie_data = stripslashes($_COOKIE['shopping_cart']);
 
-  $cart_data = json_decode($cookie_data, true);
- }
- else
- {
-  $cart_data = array();
- }
+//   $cart_data = json_decode($cookie_data, true);
+//  }
+//  else
+//  {
+//   $cart_data = array();
+//  }
 
- $item_id_list = array_column($cart_data, 'item_id');
+//  $item_id_list = array_column($cart_data, 'item_id');
 
- if(in_array($_GET["hidden_id"], $item_id_list))
- {
-  foreach($cart_data as $keys => $values)
-  {
-   if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
-   {
-    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
-   }
+//  if(in_array($_GET["hidden_id"], $item_id_list))
+//  {
+//   foreach($cart_data as $keys => $values)
+//   {
+//    if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
+//    {
+//     $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+//    }
 
-  }
- }
- else
- {
-  $item_array = array(
-   'item_id'   => $_GET["hidden_id"],
-   'item_name'   => $_GET["hidden_name"],
-   'item_price'  => $_GET["hidden_price"],
-   'item_quantity'  => $_GET["quantity"]
-  );
-  $cart_data[] = $item_array;
- }
+//   }
+//  }
+//  else
+//  {
+//   $item_array = array(
+//    'item_id'   => $_GET["hidden_id"],
+//    'item_name'   => $_GET["hidden_name"],
+//    'item_price'  => $_GET["hidden_price"],
+//    'item_quantity'  => $_GET["quantity"]
+//   );
+//   $cart_data[] = $item_array;
+//  }
 
  
- $item_data = json_encode($cart_data);
- setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+//  $item_data = json_encode($cart_data);
+//  setcookie('shopping_cart', $item_data, time() + (86400 * 30));
  
- header("location:signupForm.php");
+//  header("location:signupForm.php");
 
-}
-if(isset($_GET["success"]))
-{
- $message = '
- <div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    Item Added into Cart
- </div>
- '; 
-  }  
+// }
+// if(isset($_GET["success"]))
+// {
+//  $message = '
+//  <div class="alert alert-success alert-dismissible">
+//     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+//     Item Added into Cart
+//  </div>
+//  '; 
+//   }  
    
    foreach($result as $row)
    {
@@ -261,7 +317,7 @@ if(isset($_GET["success"]))
       <input type="hidden" name="hidden_price" value="<?php echo $row["productprice"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["productid"]; ?>" />
      <!--  <input type="submit" name="view_info" style="margin-top:5px;" class="btn btn-info" value="View Info" /> -->
-     <a href="productinfo.php?id=<?php echo $row['productid'];?>" style= "display: inline-block ; background-color:purple ; color:white; text-align: center; padding:10px 10px;">View Info</a>
+     <a href="productinfo.php?id=<?php echo $row['productid'];?>" style= "display: inline-block ; background-color:purple ; color:white; text-align: center; border-radius: 5px; height: 30px;width: 90px;">View Info</a>
 
       <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
      </div>
