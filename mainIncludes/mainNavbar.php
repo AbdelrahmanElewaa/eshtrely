@@ -19,7 +19,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="fashion.php">Fashion</a>
                 <a class="dropdown-item" href="electronics.php">Electronics</a>
-                <a class="dropdown-item" href="H&G.php">Home & Garden</a>
+                <a class="dropdown-item" href="H&G.php">Food & Goods</a>
               </div>
             </li>
             <li class="nav-item">
