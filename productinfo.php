@@ -155,6 +155,18 @@ function displayReview(){
             </div>
 
 <!-- habd -->
+<div class="modal-body">
+            <h4 class="text-center mt-2 mb-4">
+              <i class="fas fa-star star-light submit_star mr-1" id="submit_star_1" data-rating="1"></i>
+                    <i class="fas fa-star star-light submit_star mr-1" id="submit_star_2" data-rating="2"></i>
+                    <i class="fas fa-star star-light submit_star mr-1" id="submit_star_3" data-rating="3"></i>
+                    <i class="fas fa-star star-light submit_star mr-1" id="submit_star_4" data-rating="4"></i>
+                    <i class="fas fa-star star-light submit_star mr-1" id="submit_star_5" data-rating="5"></i>
+            </h4>
+            <div class="form-group text-center mt-4">
+              <button type="button" class="btn btn-primary" id="save_review">Submit Rating</button>
+            </div>
+            </div>
 <b><span id="average_rating">0.0</span> / 5</b>
               </h1>
               <div class="mb-3">
@@ -164,11 +176,76 @@ function displayReview(){
                             <i class="fas fa-star star-light mr-1 main_star"></i>
                             <i class="fas fa-star star-light mr-1 main_star"></i>
               </div>
-              <h3><span id="total_review">0</span> Review</h3>
+              
             </div>
+      <div class="col-sm-4">
+              <p>
+                            <div class="progress-label-left"><b>5</b> <i class="fas fa-star text-warning"></i></div>
+
+                            <div class="progress-label-right">(<span id="total_five_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="five_star_progress"></div>
+                            </div>
+                        </p>
+              <p>
+                            <div class="progress-label-left"><b>4</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_four_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="four_star_progress"></div>
+                            </div>               
+                        </p>
+              <p>
+                            <div class="progress-label-left"><b>3</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_three_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="three_star_progress"></div>
+                            </div>               
+                        </p>
+              <p>
+                            <div class="progress-label-left"><b>2</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_two_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="two_star_progress"></div>
+                            </div>               
+                        </p>
+              <p>
+                            <div class="progress-label-left"><b>1</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_one_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="one_star_progress"></div>
+                            </div>               
+                        </p>
+            </div>
+<style>
+.progress-label-left
+{
+    float: left;
+    margin-right: 0.5em;
+    line-height: 1em;
+}
+.progress-label-right
+{
+    float: right;
+    margin-left: 0.3em;
+    line-height: 1em;
+}
+.star-light
+{
+  color:#e9ecef;
+}
+</style>
+
+
+
 <!-- habd -->
           </form> 
+
           </div>
+            <h3></span> Reviews</h3>
         </div>
         <?php displayReview();  ?>
   </body>
@@ -176,4 +253,5 @@ function displayReview(){
 <script src="js/bootstrap.min.js"></script>
 <script src="js/all.min.js"></script>
 <script src="js/validation.js"></script>
+
   </html>
