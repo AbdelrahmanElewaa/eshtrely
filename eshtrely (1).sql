@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2021 at 07:02 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.11
+-- Generation Time: Jan 11, 2022 at 11:03 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,25 +56,70 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`productname`, `productid`, `productprice`, `productimage`, `rating`, `quantity`, `producttype`) VALUES
-('Laptop Dell', '1', 400.00, 'dell.jpg', 0.0, 50, 'electronics'),
-('KitKat Chocolate', '10', 4.00, 'kitkat.jpg', 0.0, 200, 'food'),
-('Pepsi Can', '11', 5.00, 'pepsican.jpg', 0.0, 250, 'food'),
-('Coca Cola 2L Bottle', '12', 10.00, 'coke2l.jpg', 0.0, 150, 'food'),
-('Snickers', '13', 4.00, 'snickers.jpg', 0.0, 200, 'food'),
+('Laptop Dell', '1', 400.00, 'dell.jpg', 0.0, 48, 'electronics'),
+('KitKat Chocolate', '10', 4.00, 'kitkat.jpg', 0.0, 191, 'food'),
+('Pepsi Can', '11', 5.00, 'pepsican.jpg', 0.0, 249, 'food'),
+('Coca Cola 2L Bottle', '12', 10.00, 'coke2l.jpg', 0.0, 149, 'food'),
+('Snickers', '13', 4.00, 'snickers.jpg', 0.0, 197, 'food'),
 ('Pepsi 2L Bottle', '14', 10.00, 'pepsi2l.jpeg', 0.0, 150, 'food'),
-('Chile Limon Chips', '15', 15.00, 'chilelimonchips.jpeg', 0.0, 200, 'food'),
-('Liverpool Nike T-Shirt', '16', 200.00, 'liverpoolshirt.jpg', 0.0, 150, 'fashion'),
-('Black Nike T-Shirt', '17', 250.00, 'nikeblackshirt.jpg', 0.0, 150, 'fashion'),
-('Nike Black Sweatpants', '18', 150.00, 'nikeblackpants.jpg', 0.0, 240, 'fashion'),
-('Nike Green Sweatpants', '19', 150.00, 'nikegreenpants.jpg', 0.0, 200, 'fashion'),
-('Nike Shoes', '2', 200.00, 'nikeshoe.jpg', 0.0, 20, 'fashion'),
+('Chile Limon Chips', '15', 15.00, 'chilelimonchips.jpeg', 0.0, 199, 'food'),
+('Liverpool Nike T-Shirt', '16', 200.00, 'liverpoolshirt.jpg', 0.0, 146, 'fashion'),
+('Black Nike T-Shirt', '17', 250.00, 'nikeblackshirt.jpg', 0.0, 149, 'fashion'),
+('Nike Black Sweatpants', '18', 150.00, 'nikeblackpants.jpg', 0.0, 239, 'fashion'),
+('Nike Green Sweatpants', '19', 150.00, 'nikegreenpants.jpg', 0.0, 199, 'fashion'),
+('Nike Shoes', '2', 200.00, 'nikeshoe.jpg', 0.0, 19, 'fashion'),
 ('Tomato Chips', '3', 15.00, 'tomatoochips.jpg', 0.0, 100, 'food'),
 ('Twinkies', '4', 2.00, 'twinkies.jpg', 0.0, 500, 'food'),
 ('Galaxy Chocolate', '5', 4.00, 'galaxy.jpg', 0.0, 300, 'food'),
-('IPhone 13', '6', 699.00, 'iPhone13.jpg', 0.0, 200, 'electronics'),
+('IPhone 13', '6', 699.00, 'iPhone13.jpg', 0.0, 198, 'electronics'),
 ('Rice Bag', '7', 10.00, 'rice.jpg', 0.0, 100, 'food'),
 ('Sour Cream & Onions Chips', '8', 15.00, 'sourcreamchips.jpg', 0.0, 200, 'food'),
-('Lenovo A5s', '9', 300.00, 'LenovoA5s.jpeg', 0.0, 300, 'electronics');
+('Lenovo A5s', '9', 300.00, 'LenovoA5s.jpeg', 0.0, 299, 'electronics');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating`
+--
+
+CREATE TABLE `rating` (
+  `userid` int(55) NOT NULL,
+  `productid` int(55) NOT NULL,
+  `productrating` double(1,1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`userid`, `productid`, `productrating`) VALUES
+(29, 10, 0.0),
+(29, 10, 0.0),
+(29, 10, 0.0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `reviewid` int(100) NOT NULL,
+  `userid` int(55) NOT NULL,
+  `username` varchar(55) NOT NULL,
+  `userimage` varchar(55) NOT NULL,
+  `productid` int(100) NOT NULL,
+  `reviewdate` varchar(100) NOT NULL,
+  `review` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`reviewid`, `userid`, `username`, `userimage`, `productid`, `reviewdate`, `review`) VALUES
+(9, 29, 'Ahmed Sameh', 'photo-1617127365659-c47fa864d8bc.jfif', 11, 'Sunday 9th of January 2022 02:08:53 PM', 'ent3a4'),
+(11, 30, 'shehab', 'images.jfif', 11, 'Sunday 9th of January 2022 02:23:16 PM', 'refreshing');
 
 -- --------------------------------------------------------
 
@@ -102,7 +147,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `role`, `photo`, `created_at`, `updated_at`) VALUES
 (14, 'Amr Elewa', 'amrelewa@gmail.com', '123456', '01002585821', 'nasr city', 'admin', 'WhatsApp Image 2021-12-13 at 5.56.22 PM.jpeg', NULL, NULL),
 (21, 'Ali Khaled', 'ali@email.com', '218', '01140414492', '85 haroun elrashid- Misr elgdeda', 'customer', 'WhatsApp Image 2021-12-13 at 6.03.59 PM.jpeg', NULL, NULL),
-(24, 'Hady Wael ', 'hadywk@gmail.com', '1234', '01151665100', 'nasr city', 'customer', 'background.jpg', NULL, NULL);
+(24, 'Hady Wael ', 'hadywk@gmail.com', '1234', '01151665100', 'nasr city', 'customer', 'background.jpg', NULL, NULL),
+(28, 'mohmed', 'Mazenwk@gmail.com', '9876', '0309393', 'dehk st', 'customer', 'the_child_star_wars_gallery_5e3204be4f668.jpg', NULL, NULL),
+(29, 'Ahmed Sameh', 'Ghourab@gmail.com', '682001', '01015266031', 'ahmed el sawy- nasr city, building 50-apartment11', 'customer', 'photo-1617127365659-c47fa864d8bc.jfif', NULL, NULL),
+(30, 'shehab', 'shehab@gmail.com', '123', '123', 'shrouk', 'customer', 'images.jfif', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -121,6 +169,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`productid`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`reviewid`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -137,10 +191,16 @@ ALTER TABLE `admins`
   MODIFY `adminID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `reviewid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
