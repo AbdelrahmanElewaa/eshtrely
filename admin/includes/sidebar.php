@@ -1,5 +1,5 @@
 <?php
-include('session.php');
+session_start();
 ?>
 <!-- Main Sidebar Container -->
   
@@ -275,7 +275,7 @@ include('session.php');
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="orders.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Orders</p>
                 </a>
