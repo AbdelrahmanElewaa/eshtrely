@@ -31,12 +31,26 @@ if (!empty($_SESSION['name']))
   $conn= new mysqli("localhost","root","","eshtrely");
   $cookie_data = stripslashes($_COOKIE['shopping_cart']); //to decode data before using it 
   $cart_data = json_decode($cookie_data, true);
-  
+
   foreach($cart_data as $keys => $values)
     {
+      
       $sql="update products set quantity= quantity - '". $values["item_quantity"]."' where productid=  '".$values[ "item_id" ]."'  ";
       $result=mysqli_query($conn,$sql); 
- }
+     
+     $sql2="INSERT INTO orders (`userid`,`productid`,`quantity`) VALUES ('".$_SESSION["id"]."','".$values[ "item_id" ]."','".$values["item_quantity"]."') ";
+     $result2=mysqli_query($conn,$sql2)or die($conn->error); 
+     // if($result2){
+     //  echo"ay 7aga";
+     // }
+      
+
+    }
+    
+      
+ 
+
+ 
  
 
 //   if ($cart_data) {
@@ -44,7 +58,7 @@ if (!empty($_SESSION['name']))
 //   }
 
  setcookie("shopping_cart", "", time() - 3600);
-  
+ 
  }
  if(isset($_GET["Checkout"]))
 {
