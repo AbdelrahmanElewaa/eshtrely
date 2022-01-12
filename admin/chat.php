@@ -29,6 +29,19 @@ include('includes/navbar.php');
   <?php
 $conn= new mysqli("localhost","root","","eshtrely");
 
+
+if(isset($_POST['send']))
+{
+
+     
+	$createdAt = date("Y-m-d h:i:sa");
+	$sender =0;
+	$receiver = $_GET['id'];
+	$message = $_POST['message'];
+	$sendMessage = "INSERT INTO messages(sender,receiver,message,createdAt) VALUES('$sender','$receiver','$message','$createdAt')";
+	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
+}
+
 // getting the sender id
 // $sql= "SELECT message FROM messages WHERE receiver=0 and sender='".$_GET['id']."' ";
 $sql= "SELECT  message From messages WHERE sender = '".$_GET['id']."' AND receiver =0 OR sender =0 AND receiver = '".$_GET['id']."'";
@@ -53,17 +66,6 @@ else{
     echo"<h2>No Messages has been send</h2>";
 }
 
-if(isset($_POST['send']))
-{
-
-     
-	$createdAt = date("Y-m-d h:i:sa");
-	$sender =0;
-	$receiver = $_GET['id'];
-	$message = $_POST['message'];
-	$sendMessage = "INSERT INTO messages(sender,receiver,message,createdAt) VALUES('$sender','$receiver','$message','$createdAt')";
-	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
-}
 ?>
 
 <form   action="" method="post" enctype="multipart/form-data">
