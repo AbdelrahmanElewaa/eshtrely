@@ -69,6 +69,8 @@ $row1= $result1->fetch_array(MYSQLI_NUM);
 
 <option>admin</option>
 <option>customer</option>
+<option>auditor</option>
+<option>HR</option>
 </select>
 <div id="roleerror"></div>
 <b id="uploadtext">Upload your profile photo:<b><br>
