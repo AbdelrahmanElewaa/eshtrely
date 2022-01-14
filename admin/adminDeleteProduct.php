@@ -23,7 +23,7 @@ include('includes/session.php');
  $sql="DELETE FROM products WHERE productid='".$_GET['productid']."'";
  $result= mysqli_query($conn,$sql);
   
-     header('Location:admin/products.php');
+     header('Location:products.php');
  
  include('includes/sourcesJS.php');
  ?>
