@@ -114,8 +114,16 @@ if($row[6]=="admin")
 {
   header("Location:admin/admin.php");
 }
-else{
-  header("Location:index.php");
+else if($row[6]=="HR"){
+  header("Location:HR/HR.php");
+}
+else if($row[6]=="auditor"){
+  header("Location:auditor/auditor.php");
+}
+
+else
+{
+header("Location:index.php");
 }
 
 }
