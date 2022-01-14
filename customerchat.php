@@ -18,6 +18,14 @@
         <?php
 include('mainIncludes/mainNavbar.php');
 session_start();
+if(isset($_POST['logout']))
+{
+  $_SESSION['name']="";
+  $_SESSION['photo']="";
+  header('Location:index.php');
+  setcookie("shopping_cart", "", time() - 3600);
+}
+
 if (!empty($_SESSION['name']))
 {
   echo '<div class="dropdown show">
@@ -38,51 +46,81 @@ if (!empty($_SESSION['name']))
                 </div>
                 </div></nav>';
 
-
-
+               
 }
 else{
     header("Location:index.php");
 }
 
 $conn= new mysqli("localhost","root","","eshtrely");
-$sql= "SELECT  message From messages WHERE sender = 0 AND receiver ='".$_SESSION['id']."' OR sender ='".$_SESSION['id']."' AND receiver =0 ";
+if(isset($_POST['send']))
+{
+
+    
+	$createdAt = date("Y-m-d h:i:sa");
+	$sender = $_SESSION['id'];
+  $senderName=$_SESSION['name'];
+	$receiver = 0;
+	$message = $_POST['message'];
+	$sendMessage = "INSERT INTO messages(sender,senderName,receiver,message,createdAt) VALUES('$sender','$senderName','$receiver','$message','$createdAt')";
+	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
+}
+ 
+$sql= "SELECT  message,sender,createdAt From messages WHERE sender=0 and receiver ='".$_SESSION['id']."' OR (sender ='".$_SESSION['id']."' AND receiver=0 ) ORDER BY createdAt asc";
 $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
 if(mysqli_num_rows($result) > 0) {
     $rows=$result->num_rows;
-  
+    echo"<table class='table' style='width:500px; margin-left:10px'>";
     for($i=0;$i<$rows;$i++)
     {
         $senderMessages= mysqli_fetch_array($result); 
-        for($j=0;$j<1;$j++)
-        {
-     
-            echo"<p>".$senderMessages[$j]."</p>";
-            echo"<br>";
-        }
+       
+        
+            if($senderMessages[1]==$_SESSION['id'])
+            {
+              echo"<tr class='bg-warning'>";
+                echo"<td class='bg-warning'><b>You</b></td>";
+                echo"<td >".$senderMessages[0]."</td>";
+                echo"<td >".$senderMessages[2]."</td>";
+                
+            }
+            else{
+              echo"<tr class='bg-info'>";
+              echo"<td class='bg-info'><b>Admin<b></td>";
+              echo"<td >".$senderMessages[0]."</td>";
+              echo"<td >".$senderMessages[2]."</td>";
+              
+            }
+            
+           
+        echo"</tr>";
         
     }
+    echo"</table>";
 
 }
 else{
     echo"<h2>No Messages has been send</h2>";
 }
 
-if(isset($_POST['send']))
-{
 
-    $conn= new mysqli("localhost","root","","eshtrely");
-	$createdAt = date("Y-m-d h:i:sa");
-	$sender =0;
-	$receiver = $_GET['id'];
-	$message = $_POST['message'];
-	$sendMessage = "INSERT INTO messages(sender,receiver,message,createdAt) VALUES('$sender','$receiver','$message','$createdAt')";
-	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
-}
 ?>
 
 
 
+<form   action="" method="post" enctype="multipart/form-data" >
+  
+  <div class="form-group">
+    <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3" placeholder="How Can the Admin Help You!!"
+    style="width:600px; height:100px; margin-left:10px; background-color:lightgrey;"></textarea>
+  </div>
+
+  <div class="form-group">
+  <input type="file" style="margin-left:220px"name="photo"  class="ProfilePhoto"><br>
+  <input type="submit" style="margin-left:240px" value="Send" name="send" class="btn btn-primary" class="form-control">
+</div>
+
+</form>
 
 
 

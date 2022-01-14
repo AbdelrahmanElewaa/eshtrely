@@ -18,6 +18,13 @@
         <?php
 include('mainIncludes/mainNavbar.php');
 session_start();
+if(isset($_POST['logout']))
+{
+  $_SESSION['name']="";
+  $_SESSION['photo']="";
+  header('Location:index.php');
+  setcookie("shopping_cart", "", time() - 3600);
+}
 if (!empty($_SESSION['name']))
 {
   echo '<div class="dropdown show">
@@ -51,10 +58,14 @@ if(isset($_POST['send']))
     $conn= new mysqli("localhost","root","","eshtrely");
 	$createdAt = date("Y-m-d h:i:sa");
 	$sender = $_SESSION['id'];
+  $senderName=$_SESSION['name'];
 	$receiver = 0;
 	$message = $_POST['message'];
-	$sendMessage = "INSERT INTO messages(sender,receiver,message,createdAt) VALUES('$sender','$receiver','$message','$createdAt')";
+	$sendMessage = "INSERT INTO messages(sender,senderName,receiver,message,createdAt) VALUES('$sender','$senderName','$receiver','$message','$createdAt')";
 	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
+  echo'<div style="margin-top:20px;"class="alert alert-success" role="alert">
+  <i class="fas fa-check-circle"></i>'." ".'Message is Sent to the Admin Successfully
+</div>';
 }
 ?>
 
