@@ -1,5 +1,13 @@
 <?php
-session_start();
+include('session.php');
+
+if(isset($_POST['logout']))
+{
+  $_SESSION['name']="";
+  $_SESSION['photo']="";
+  header('Location:../index.php');
+  
+}
 ?>
 <!-- Main Sidebar Container -->
   
@@ -7,7 +15,7 @@ session_start();
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="links/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Admin Dashboard</span>
     </a>
 
     <!-- Sidebar -->
@@ -55,6 +63,7 @@ session_start();
             </a>
             
           </li>
+        
           <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -275,7 +284,7 @@ session_start();
                 </a>
               </li>
               <li class="nav-item">
-                <a href="orders.php" class="nav-link">
+                <a href="pages/tables/jsgrid.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Orders</p>
                 </a>
@@ -284,6 +293,14 @@ session_start();
           </li>
           
         </ul>
+        <li class="nav-item">
+                <form action="" method="post">
+                <button type="submit" name="logout" class="nav-link">
+                  <i class="fas fa-sign-out-alt nav-icon"></i>
+                  <p>Logout</p>
+                </button>
+                </form>
+              </li>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
