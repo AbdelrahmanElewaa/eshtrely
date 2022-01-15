@@ -81,7 +81,7 @@ function displayReview(){
 ?>
 <head>
     <meta charset="utf-8" />
-    <title>Review & Rating System in PHP & Mysql using Ajax</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -139,9 +139,9 @@ function displayReview(){
 </table>
 
     <div class="container">
-        <h1 class="mt-5 mb-5">Review & Rating System in PHP & Mysql using Ajax</h1>
+      
         <div class="card">
-            <div class="card-header">Sample Product</div>
+            <div class="card-header">Product review & rating</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-4 text-center">
@@ -326,6 +326,8 @@ $(document).ready(function(){
 
         var user_review = $('#user_review').val();
 
+        var product_id = <?php echo $_GET['id'] ;  ?>
+
         if(user_name == '' || user_review == '')
         {
             alert("Please Fill Both Field");
@@ -336,7 +338,7 @@ $(document).ready(function(){
             $.ajax({
                 url:"submit_rating.php",
                 method:"POST",
-                data:{rating_data:rating_data, user_name:user_name, user_review:user_review},
+                data:{rating_data:rating_data, user_name:user_name, user_review:user_review,product_id:product_id},
                 success:function(data)
                 {
                     $('#review_modal').modal('hide');
@@ -354,10 +356,12 @@ $(document).ready(function(){
 
     function load_rating_data()
     {
+         var product_id = <?php echo $_GET['id'] ;  ?>
+
         $.ajax({
             url:"submit_rating.php",
             method:"POST",
-            data:{action:'load_data'},
+            data:{action:'load_data',product_id:product_id},
             dataType:"JSON",
             success:function(data)
             {

@@ -13,13 +13,14 @@ if(isset($_POST["rating_data"]))
         ':user_name'        =>  $_POST["user_name"],
         ':user_rating'      =>  $_POST["rating_data"],
         ':user_review'      =>  $_POST["user_review"],
+         ':product_id'       =>  $_POST["product_id"],
         ':datetime'         =>  time()
     );
 
     $query = "
     INSERT INTO review_table 
-    (`user_name`, `user_rating`, `user_review`, datetime) 
-    VALUES (:user_name, :user_rating, :user_review, :datetime)
+    (`user_name`, `user_rating`, `user_review`, datetime,`product_id`) 
+    VALUES (:user_name, :user_rating, :user_review, :datetime,:product_id)
     ";
 
     $statement = $connect->prepare($query);
@@ -42,12 +43,15 @@ if(isset($_POST["action"]))
     $total_user_rating = 0;
     $review_content = array();
 
-    $query = "
-    SELECT * FROM review_table 
-    ORDER BY review_id DESC
-    ";
+    $query = "SELECT * FROM review_table
 
-    $result = $connect->query($query, PDO::FETCH_ASSOC);
+    WHERE product_id = '".$_POST['product_id']."'
+
+ ORDER BY review_id DESC  
+
+     ";
+
+    $result = $connect->query($query, PDO::FETCH_ASSOC) or die("teezak");
 
     foreach($result as $row)
     {
@@ -55,7 +59,10 @@ if(isset($_POST["action"]))
             'user_name'     =>  $row["user_name"],
             'user_review'   =>  $row["user_review"],
             'rating'        =>  $row["user_rating"],
-            'datetime'      =>  date('l jS, F Y h:i:s A', $row["datetime"])
+            'datetime'      =>  date('l jS, F Y h:i:s A', $row["datetime"]
+             ),
+
+            'product_id'     =>  $row["product_id"]
         );
 
         if($row["user_rating"] == '5')
