@@ -17,14 +17,21 @@ include('includes/navbar.php');
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
+    <!-- Add product -->
+
+    <a href="addproduct.php" style="font-size:15px; margin-right:30px; margin-bottom:15px; float:right; color:red;"><i class="fas fa-laptop-medical"></i> Add Product</a>
+
+
+    <!---->
 
     <!-- Main content -->
     <!-- dah elhnktb feh elmain things-->
