@@ -219,8 +219,8 @@ $('#myModal').modal({
    <!--Search Bar-->
 
     <div class="topnav">
-        <a href="cart2.php">Your Cart</a>
-    <div class="search-container">
+        <a href="cart2.php"><i class="fas fa-shopping-cart"></i> Your Cart</a>
+    <div class="search-container"> 
         
     <form method='get' action='searchpage.php'>
       <input type="text" placeholder="Search.." name="search">

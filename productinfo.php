@@ -98,16 +98,12 @@ function displayReview(){
 
 </head>
 <body>
-    <br />
   <div class="container">
-   <br />
-  
-   <br /><br />
    <div style="clear:both"></div>
    <br />
    <h3>Product Details</h3>
    <table class="table table-bordered">
-    <tr>
+    <tr style="background-color: lightgrey;">
      <th width="40%">Image</th>
      <th width="40%">Item Name</th>
      <th width="20%">Price</th>
