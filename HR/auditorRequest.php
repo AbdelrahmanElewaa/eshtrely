@@ -37,7 +37,7 @@ if(isset($_POST['send']))
 	$createdAt = date("Y-m-d h:i:sa");
 	$sender =$_SESSION['id'];
   $senderName=$_SESSION['name'];
-	$receiver =56;
+	$receiver =24;
 	$message = $_POST['message'];
 	$sendMessage = "INSERT INTO messages(sender,senderName,receiver,message,createdAt) VALUES('$sender','$senderName','$receiver','$message','$createdAt')";
 	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
@@ -47,7 +47,7 @@ if(isset($_POST['send']))
 
 // getting the sender id
 // $sql= "SELECT message FROM messages WHERE receiver=0 and sender='".$_GET['id']."' ";
-$sql= "SELECT  message,createdAt,sender,senderName From messages WHERE sender = '".$_SESSION['id']."' AND receiver =56 OR (sender=56 and receiver = '".$_SESSION['id']."') ORDER BY createdAt asc";
+$sql= "SELECT  message,createdAt,sender,senderName From messages WHERE sender = '".$_SESSION['id']."' AND receiver =24 OR (sender=24 and receiver = '".$_SESSION['id']."') ORDER BY createdAt asc";
 $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
 if(mysqli_num_rows($result) > 0) {
     $rows=$result->num_rows;
