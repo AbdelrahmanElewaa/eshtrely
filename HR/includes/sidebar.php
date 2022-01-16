@@ -15,7 +15,7 @@ if(isset($_POST['logout']))
   
 <aside style="position:fixed;"class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="HR.php" class="brand-link">
       <img src="links/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">HR Dashboard</span>
     </a>
