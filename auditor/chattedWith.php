@@ -28,6 +28,9 @@ include('includes/navbar.php');
 
     <?php
 $conn= new mysqli("localhost","root","","eshtrely");
+if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
 $viewAdminSQL="SELECT photo,name FROM users WHERE id='".$_GET['adminid']."'";
 $viewAdminResult=mysqli_query($conn,$viewAdminSQL);
 $adminInfo= $viewAdminResult->fetch_array(MYSQLI_NUM);
@@ -92,13 +95,7 @@ include('includes/sourcesJS.php');
   </div>
 </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0
-    </div>
-  </footer>
+ 
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
