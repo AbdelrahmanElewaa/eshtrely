@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Penalty</title>
  
   <!-- Google Font: Source Sans Pro -->
   
@@ -23,6 +23,9 @@
  <?php
  
  $conn= new mysqli("localhost","root","","eshtrely");
+ if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
  $penaltyMessage="Dear Admin you have got a penalty due to your behaviour with the customer .. Please Go to The HR department!!!";
 	$createdAt = date("Y-m-d h:i:sa");
 	$sender = -1;
