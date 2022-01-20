@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Chat</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/search.css">
+    
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -56,6 +57,9 @@ if(isset($_POST['send']))
 {
 
     $conn= new mysqli("localhost","root","","eshtrely");
+    if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
 	$createdAt = date("Y-m-d h:i:sa");
 	$sender = $_SESSION['id'];
   $senderName=$_SESSION['name'];

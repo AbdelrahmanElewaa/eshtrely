@@ -89,7 +89,7 @@ $email=$_POST['email'];
 $password=$_POST['password'];
 
   $sanitizedEmail=filter_var($email,FILTER_SANITIZE_EMAIL);
-	$sanitizedPass=filter_var($password,FILTER_SANITIZE_STRING);
+  $sanitizedPass=filter_var($password,FILTER_SANITIZE_STRING);
 
 if(filter_var($sanitizedEmail,FILTER_VALIDATE_EMAIL))
 {
@@ -97,6 +97,9 @@ if(filter_var($sanitizedEmail,FILTER_VALIDATE_EMAIL))
   document.getElementById('emailerror2').innerHTML='';
   </script>";
 $conn= new mysqli("localhost","root","","eshtrely");
+if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
 $sql="SELECT * FROM users WHERE email='".$_POST['email']."' and password='".$_POST['password']."'";
 $result= mysqli_query($conn,$sql);
 if($row= mysqli_fetch_array($result))

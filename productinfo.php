@@ -61,6 +61,11 @@ if(isset($_POST['logout']))
 function displayReview(){
   $id = $_GET['id'];
     $conn= new mysqli("localhost","root","","eshtrely");
+
+    if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
+
   $sql="SELECT userimage,username,review,reviewdate FROM reviews where productid = '".$id."' ";
   $result=mysqli_query($conn,$sql);
   echo "<div class='review'>";
@@ -112,6 +117,9 @@ function displayReview(){
      <?php
   $id = $_GET['id'];
     $conn= new mysqli("localhost","root","","eshtrely");
+    if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
   $sql="SELECT productimage,productname,productprice FROM products where productid = '".$id."' ";
   $result=mysqli_query($conn,$sql);
   while ($row = mysqli_fetch_array($result)) {

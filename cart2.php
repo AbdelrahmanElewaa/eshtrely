@@ -29,6 +29,9 @@ if (!empty($_SESSION['name']))
   // setcookie("shopping_cart", "", time() - 3600);
   header("location:cart2.php?Checkout=1");
   $conn= new mysqli("localhost","root","","eshtrely");
+  if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
   $cookie_data = stripslashes($_COOKIE['shopping_cart']); //to decode data before using it 
   $cart_data = json_decode($cookie_data, true);
 
@@ -162,28 +165,7 @@ if(isset($_GET["action"]))
   setcookie("shopping_cart", "", time() - 3600);
   header("location:cart2.php?clearall=1");
  }
-//   if($_GET["action"] == "Checkout")
-//  {
-//   // setcookie("shopping_cart", "", time() - 3600);
-//   header("location:cart2.php?Checkout=1");
-//   $conn= new mysqli("localhost","root","","eshtrely");
-//   $cookie_data = stripslashes($_COOKIE['shopping_cart']); //to decode data before using it 
-//   $cart_data = json_decode($cookie_data, true);
-  
-//   foreach($cart_data as $keys => $values)
-//     {
-//       $sql="update products set quantity= quantity - '". $values["item_quantity"]."' where productid=  '".$values[ "item_id" ]."'  ";
-//       $result=mysqli_query($conn,$sql); 
-//  }
- 
 
-// //   if ($cart_data) {
-// //     header("location:cart2.php?Checkout=1");
-// //   }
- 
-//  setcookie("shopping_cart", "", time() - 3600);
-  
-//  }
 
 }
 
@@ -222,21 +204,19 @@ if(isset($_GET["clearall"]))
 ?>
 <!DOCTYPE html>
 <html>
- <head>
-    <title>Shopping Cart</title>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Cart</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/search.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
- 
- </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
 
 
  <body>
@@ -319,4 +299,8 @@ if(isset($_GET["clearall"]))
   </div>
   <br />
  </body>
+ <script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/all.min.js"></script>
+<script src="js/validation.js"></script>
 </html>

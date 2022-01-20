@@ -40,6 +40,10 @@ if (!empty($_SESSION['name']))
     // setcookie("proinfo", "", time() - 3600);
        $conn= new mysqli("localhost","root","","eshtrely");
 
+       if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
+
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
   $message = '';
@@ -176,6 +180,9 @@ $('#myModal').modal({
 <?php
  
   $conn= new mysqli("localhost","root","","eshtrely");
+  if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
 
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
@@ -241,6 +248,9 @@ if(isset($_GET["success"]))
 if(isset($_GET['search'])){
 $searchKey=$_GET['search'];
 $conn= new mysqli("localhost","root","","eshtrely");
+if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
 $sql="SELECT productimage,productname,productid,productprice, rating, quantity FROM products WHERE productname LIKE '%$searchKey%'";
 $result=mysqli_query($conn,$sql) or die($conn->error);
 $rows=$result->num_rows;
@@ -259,7 +269,7 @@ if(empty($rows)){
 
 
 
-     <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
+     <div style="margin-bottom: 15px; border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
 
      <a type="hidden" name="hidden_name" href="productinfo.php?id=<?php echo $row['productid']; ?>"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
 

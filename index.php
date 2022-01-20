@@ -44,6 +44,9 @@ if (!empty($_SESSION['name']))
   $result=mysqli_query($conn,$sql);
   $message = '';
 
+if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
 
 if(isset($_GET["add_to_cart"]))
 {
@@ -233,68 +236,15 @@ $('#myModal').modal({
  
   $conn= new mysqli("localhost","root","","eshtrely");
 
+  if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
+
   $sql="SELECT productimage,productname,productid,productprice, rating,quantity FROM products ";
   $result=mysqli_query($conn,$sql);
   $message = '';
 
 
-// if(isset($_GET["add_to_cart"]))
-// {
-// // if (!empty($_SESSION['name']))
-// // {
-
-//  if(isset($_COOKIE["shopping_cart"]))
-//  {
-//   $cookie_data = stripslashes($_COOKIE['shopping_cart']);
-
-//   $cart_data = json_decode($cookie_data, true);
-//  }
-//  else
-//  {
-//   $cart_data = array();
-//  }
-
-//  $item_id_list = array_column($cart_data, 'item_id');
-
-//  if(in_array($_GET["hidden_id"], $item_id_list))
-//  {
-//   foreach($cart_data as $keys => $values)
-//   {
-//    if($cart_data[$keys]["item_id"] == $_GET["hidden_id"])
-//    {
-//     $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
-//    }
-
-//   }
-//  }
-//  else
-//  {
-//   $item_array = array(
-//    'item_id'   => $_GET["hidden_id"],
-//    'item_name'   => $_GET["hidden_name"],
-//    'item_price'  => $_GET["hidden_price"],
-//    'item_quantity'  => $_GET["quantity"]
-//   );
-//   $cart_data[] = $item_array;
-//  }
-
- 
-//  $item_data = json_encode($cart_data);
-//  setcookie('shopping_cart', $item_data, time() + (86400 * 30));
- 
-//  header("location:signupForm.php");
-
-// }
-// if(isset($_GET["success"]))
-// {
-//  $message = '
-//  <div class="alert alert-success alert-dismissible">
-//     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-//     Item Added into Cart
-//  </div>
-//  '; 
-//   }  
-   
    foreach($result as $row)
    {
   
@@ -304,7 +254,7 @@ $('#myModal').modal({
 
 
 
-     <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
+     <div style="margin-bottom: 15px; border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">
 
      <a type="hidden" name="hidden_name" href="productinfo.php?id=<?php echo $row['productid']; ?>"><img src="images/products/<?php echo $row["productimage"]; ?>" class="img-responsive" /></a><br />
 
