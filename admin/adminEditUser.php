@@ -6,6 +6,9 @@ include('includes/sidebar.php');
 include('includes/navbar.php');
 
 $conn= new mysqli("localhost","root","","eshtrely");
+if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
 $sql1="SELECT * FROM users WHERE id='".$_GET['userid']."'";
 $result1=mysqli_query($conn,$sql1);
 $row1= $result1->fetch_array(MYSQLI_NUM);

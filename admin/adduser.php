@@ -5,6 +5,9 @@ if(isset($_POST['adduser'])){
     
   
     $conn= new mysqli("localhost","root","","eshtrely");
+    if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
      
     $sql= "INSERT INTO users (name,email,phone,address,password,role,photo) VALUES ('".$_POST['name']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['address']."','".$_POST['password']."','".$_POST['role']."','".$_FILES['photo']['name']."')";
     $result= mysqli_query($conn,$sql);

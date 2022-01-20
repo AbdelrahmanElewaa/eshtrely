@@ -29,7 +29,9 @@ include('includes/navbar.php');
   <?php
 $conn= new mysqli("localhost","root","","eshtrely");
 
-
+if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
  
 
 // getting the sender id

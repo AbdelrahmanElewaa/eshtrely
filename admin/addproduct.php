@@ -5,7 +5,9 @@ if(isset($_POST['addproduct'])){
     
   
     $conn= new mysqli("localhost","root","","eshtrely");
-     
+     if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
     $sql= "INSERT INTO products (productname,productid,productprice,rating,quantity,producttype,productimage) VALUES ('".$_POST['name']."','".$_POST['id']."','".$_POST['price']."','".$_POST['rating']."','".$_POST['quantity']."','".$_POST['type']."','".$_FILES['productimage']['name']."')";
     $result= mysqli_query($conn,$sql);
      if($result)

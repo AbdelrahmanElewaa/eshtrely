@@ -59,6 +59,9 @@ include('includes/navbar.php');
 if(isset($_GET['search'])){
 $searchKey=$_GET['search'];
 $conn= new mysqli("localhost","root","","eshtrely");
+if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
 $sql="SELECT userid,productid,quantity,orderid FROM orders WHERE productid LIKE '%$searchKey%' OR userid LIKE '%$searchKey%' OR quantity LIKE '%$searchKey%' OR orderid LIKE '%$searchKey%'";
 $result=mysqli_query($conn,$sql) or die($conn->error);
 $rows=$result->num_rows;

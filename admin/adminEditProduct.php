@@ -13,6 +13,9 @@ if(isset($_POST['adminEditSubmit'])){
            $_FILES['image']['name']= $row1[3];
        }
    $conn= new mysqli("localhost","root","","eshtrely");
+   if (!$conn){
+    die("connection failed:".mysql_connect_error());
+}
     
    $sql= "UPDATE products set productname='".$_POST['name']."' , productprice='".$_POST['price']."', 
     productimage='".$_FILES['image']['name']."' , rating='".$_POST['rating']."', quantity='".$_POST['quantity']."' , producttype='".$_POST['type']."'  WHERE productid='".$_GET['productid']."' ";

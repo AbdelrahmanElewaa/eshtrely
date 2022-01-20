@@ -33,6 +33,9 @@ include('includes/navbar.php');
     </form>
     <?php
     $conn= new mysqli("localhost","root","","eshtrely");
+    if (!$conn){
+  die("connection failed:".mysql_connect_error());
+}
     if(isset($_GET['searchSubmit'])){
       $searchKey=$_GET['search'];
       $conn= new mysqli("localhost","root","","eshtrely");

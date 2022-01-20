@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Admin Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   
@@ -16,13 +16,33 @@
   
   <!-- -------------------------------includes -------------------------------->
  <?php
- include('includes/sourcesCSS.php');
+ 
+  include('includes/sidebar.php');
+
+
+ if( $_SESSION['role'] == 'admin'){ //if admin (type == 0)
+           //header('Location:admin/admin.php');
+       
+
+  include('includes/sourcesCSS.php');
  // the include of the side bar has to be before any include that has an html output so the session can start and put its values
- include('includes/sidebar.php');
+ //include('includes/sidebar.php');
  include('includes/navbar.php');
  
  include('includes/main.php');
  include('includes/sourcesJS.php');
+ 
+    }
+
+    else{ //if not admin (type !== 0)
+
+         
+         ?>
+          
+          <script>window.location.replace("../loginForm.php"); </script>
+<?php
+
+    }
  ?>
 
 
