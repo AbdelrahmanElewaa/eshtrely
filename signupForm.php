@@ -9,8 +9,21 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/signform.css">
     <link rel="stylesheet" href="css/all.min.css">
+
+<style> 
+input[type=button]{
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 12px 27px;
+  text-decoration: none;
+  margin: 3px 1px;
+  cursor: pointer;
+}
+</style>
     
 </head>
+
 <body>
     <!-- <span class="border border-success"></span> -->
 <div class="container border border-success formcontainer text-center">
@@ -66,7 +79,10 @@ else{
 
 ?>
 <input type="submit" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control">
+<br>
+ <input  type="button" onclick="window.location.href='loginform.php'" value="already have an account?" />
     </form>
+
 </div>
 </body>
 
