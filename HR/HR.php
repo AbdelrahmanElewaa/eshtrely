@@ -38,7 +38,7 @@
          
          ?>
           
-          <script>window.location.replace("../loginForm.php"); </script>
+          <script>window.location.replace("../loginform.php"); </script>
 <?php
 
     }
