@@ -22,6 +22,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact us</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="survey.php">Survey</a>
+              </li>
               <li class="nav-item dropdown">
         <a class="nav-link"  href="customerchat.php" style="margin-left:30px;color:red;">
             <i class="far fa-comments"></i> 
