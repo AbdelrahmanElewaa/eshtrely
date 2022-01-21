@@ -61,7 +61,7 @@ $adminInfo= $viewAdminResult->fetch_array(MYSQLI_NUM);
 <?php
 
 
-$customerSQL="SELECT DISTINCT receiver FROM messages WHERE sender=0 ";
+$customerSQL="SELECT DISTINCT receiver FROM messages WHERE sender='".$_GET['adminid']."' ";
 $customerResult=mysqli_query($conn,$customerSQL);
 $customerRows=$customerResult->num_rows;
 for($k=0;$k<$customerRows;$k++)

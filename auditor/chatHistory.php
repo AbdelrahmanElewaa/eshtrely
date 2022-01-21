@@ -49,7 +49,7 @@ if(isset($_POST['send']))
 
 // getting the sender id
 // $sql= "SELECT message FROM messages WHERE receiver=0 and sender='".$_GET['id']."' ";
-$sql= "SELECT  message,createdAt,sender,senderName From messages WHERE (sender = '".$_SESSION['id']."' AND receiver ='".$_GET['customerID']."') OR (sender = '".$_GET['customerID']."' AND receiver =0) OR (sender=0 and receiver='".$_GET['customerID']."') ORDER BY createdAt asc";
+$sql= "SELECT  message,createdAt,sender,senderName From messages WHERE (sender = '".$_SESSION['id']."' AND receiver ='".$_GET['customerID']."') OR (sender = '".$_GET['customerID']."' AND receiver ='".$_GET['adminID']."') OR (sender='".$_GET['adminID']."' and receiver='".$_GET['customerID']."') ORDER BY createdAt asc";
 $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
 if(mysqli_num_rows($result) > 0) {
     $rows=$result->num_rows;
@@ -59,7 +59,7 @@ if(mysqli_num_rows($result) > 0) {
      
         $senderMessages= mysqli_fetch_array($result); 
        
-        if($senderMessages[2]==0  )
+        if($senderMessages[2]==$_GET['adminID']  )
         {
             echo"<tr class='bg-info'>";
             echo"<td class='bg-info'><b>".$_GET['adminName']."</b></td>";
@@ -96,11 +96,11 @@ else{
   
   <div class="form-group">
     <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3" placeholder="How Can the Admin Help You!!"
-    style="width:600px; height:300px; margin-left:30px; background-color:lightgrey;"></textarea>
+    style="width:600px; height:100px; margin-left:30px; background-color:lightgrey;"></textarea>
   </div>
 
   <div class="form-group">
-  <input type="file" style="margin-left:220px"name="photo"  class="ProfilePhoto"><br>
+   
   <input type="submit" style="margin-left:300px" value="Send" name="send" class="btn btn-dark signupbtn" class="form-control">
 </div>
 
