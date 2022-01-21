@@ -1,10 +1,15 @@
 <?php
 if(isset($_POST['signup'])){
     
-    $conn= new mysqli("localhost","root","","eshtrely");
-    if (!$conn){
-    die("connection failed:".mysql_connect_error());
-}
+    try{
+        if(($conn = new mysqli("localhost", "root", "", "eshtrely"))-> connect_errno){
+            throw new customException("<h1 style='color:red;'>Unable to Connect</h1>");
+        }
+    }
+    catch (customException $e) {
+        echo $e->errorMessage();
+        }
+
  $checkemail="SELECT * FROM users WHERE email='".$_POST['email']."' ";
  $resultcheck= mysqli_query($conn,$checkemail);
  if($row=mysqli_fetch_array($resultcheck))
