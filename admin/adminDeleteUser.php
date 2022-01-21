@@ -12,7 +12,16 @@
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="links/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
+  <?php
+ $conn= new mysqli("localhost","root","","eshtrely");
   
+ $sql="DELETE FROM users WHERE id='".$_GET['userid']."'";
+ $result= mysqli_query($conn,$sql);
+  
+     header('Location:users.php');
+ 
+ include('includes/sourcesJS.php');
+ ?>
   <!-- -------------------------------includes -------------------------------->
  <?php
  include('includes/sourcesCSS.php');
@@ -23,18 +32,7 @@
 
  include('includes/main.php');
  ?>
- <?php
- $conn= new mysqli("localhost","root","","eshtrely");
- if (!$conn){
-  die("connection failed:".mysql_connect_error());
-}
- $sql="DELETE FROM users WHERE id='".$_GET['userid']."'";
- $result= mysqli_query($conn,$sql);
-  
-     header('Location:admin/users.php');
  
- include('includes/sourcesJS.php');
- ?>
  
 </body>
 </html>

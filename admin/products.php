@@ -67,7 +67,7 @@ for($i=0;$i<$rows;$i++)
     $row= $result->fetch_array(MYSQLI_NUM);
     echo "<tr>";
     echo"<td>".($i+1)."</td>";
-    echo "<td ><img style='width:90px; height:90px; background-size: cover; object-fit: cover;'src='../images/products/".$row[0] ."'</td>" ;
+    echo "<td ><img style='width:90px; height:90px; background-size: cover; object-fit: cover;'src='../images/products/".$row[0]."'</td>" ;
     for($j=1;$j<7;$j++)
           {
         echo "<td>".$row[$j]."</td>";

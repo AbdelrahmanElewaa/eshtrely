@@ -86,8 +86,8 @@ if(isset($_POST['logout']))
             </ul>
           </li>
           
-        </ul>
-        <li class="nav-item">
+
+          <li class="nav-item">
                 <form action="" method="post">
                 <button type="submit" name="logout" class="nav-link">
                   <i class="fas fa-sign-out-alt nav-icon"></i>
@@ -95,6 +95,10 @@ if(isset($_POST['logout']))
                 </button>
                 </form>
               </li>
+        </ul>
+        
+        
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>

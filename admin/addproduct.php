@@ -90,7 +90,7 @@ if(isset($_POST['addproduct'])){
 <div id="quantityerror"></div><br>
 
 <b id="uploadtext">Upload the product image:<b><br>
-<input type="file" name="productimage"  class="ProfilePhoto">
+<input type="file" name="productimage"  class="ProfilePhoto" id="photo"  onchange="return fileValidation()">
 <input type="submit" value="Add Product" name="addproduct" class="btn btn-success signupbtn" class="form-control addbtn">
     </form>
 </div>
@@ -171,12 +171,44 @@ function validate()
 }
 
 
+
+
+function fileValidation() {
+            var fileInput = 
+                document.getElementById('photo');
+              
+            var filePath = fileInput.value;
+            var allowedExtensions = 
+                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+              
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type');
+                fileInput.value = '';
+                return false;
+            } 
+            else 
+            {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById(
+                            'imagePreview').innerHTML = 
+                            '<img src="' + e.target.result
+                            + '"/>';
+                    };
+                      
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+        }
+
+
 </script>
 </body>
     <!-- End of Main Content -->
   
     <!-- /.content -->
-  
+</div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>

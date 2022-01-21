@@ -49,7 +49,7 @@ $row1= $result1->fetch_array(MYSQLI_NUM);
     <!-- Main content -->
    
 
- <div class="container">
+    <div class="container">
 
 <form action="" method="post" class="form-group" enctype="multipart/form-data" onsubmit="return validate()">
     
@@ -77,7 +77,7 @@ $row1= $result1->fetch_array(MYSQLI_NUM);
 </select>
 <div id="roleerror"></div>
 <b id="uploadtext">Upload your profile photo:<b><br>
-<input type="file" name="photo"  class="ProfilePhoto"><br>
+<input type="file" name="photo"  class="ProfilePhoto" id="photo"  onchange="return fileValidation()"><br>
 
 
 <script>
@@ -146,6 +146,35 @@ function validate()
     }
 }
 
+
+function fileValidation() {
+            var fileInput = 
+                document.getElementById('photo');
+              
+            var filePath = fileInput.value;
+            var allowedExtensions = 
+                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+              
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type');
+                fileInput.value = '';
+                return false;
+            } 
+            else 
+            {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById(
+                            'imagePreview').innerHTML = 
+                            '<img src="' + e.target.result
+                            + '"/>';
+                    };
+                      
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+        }
 
 </script>
 
@@ -222,7 +251,7 @@ include('includes/sourcesJS.php');
 
 ?>
     <!-- End of Main Content -->
-  
+</div>
     <!-- /.content -->
  
   <!-- /.content-wrapper -->

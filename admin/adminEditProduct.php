@@ -58,6 +58,41 @@ if(isset($_POST['adminEditSubmit'])){
     include('includes/navbar.php');
 
 ?>
+
+
+<script>
+
+function fileValidation() {
+            var fileInput = 
+                document.getElementById('photo');
+              
+            var filePath = fileInput.value;
+            var allowedExtensions = 
+                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+              
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type');
+                fileInput.value = '';
+                return false;
+            } 
+            else 
+            {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById(
+                            'imagePreview').innerHTML = 
+                            '<img src="' + e.target.result
+                            + '"/>';
+                    };
+                      
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+        }
+
+
+  </script>
 <link rel="stylesheet" href="../css/admineditform.css">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -94,7 +129,7 @@ if(isset($_POST['adminEditSubmit'])){
 
 <b id="uploadtext">Upload the Product photo:<b><br>
 
-<input type="file" name="image"  class="ProfilePhoto"><br>
+<input type="file" name="image"  class="ProfilePhoto" id="photo"  onchange="return fileValidation()"><br>
 
 <input type="submit"  name="adminEditSubmit" value="Save Changes" class="btn btn-primary editbtn">
 

@@ -37,7 +37,7 @@ if(isset($_POST['send']))
 
      
 	$createdAt = date("Y-m-d h:i:sa");
-	$sender =0;
+	$sender =$_SESSION['id'];
   $senderName=$_SESSION['name'];
 	$receiver = $_GET['id'];
 	$message = $_POST['message'];
@@ -49,8 +49,17 @@ if(isset($_POST['send']))
 
 // getting the sender id
 // $sql= "SELECT message FROM messages WHERE receiver=0 and sender='".$_GET['id']."' ";
-$sql= "SELECT  message,createdAt,sender,senderName From messages WHERE sender = '".$_GET['id']."' AND receiver =0 OR  receiver = '".$_GET['id']."' ORDER BY createdAt asc";
+$sql= "SELECT  message,createdAt,sender,senderName,seen From messages WHERE sender = '".$_GET['id']."' AND receiver ='".$_SESSION['id']."' OR  receiver = '".$_GET['id']."' ORDER BY createdAt asc";
+
+
 $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
+
+
+
+
+$seenreciept="UPDATE messages SET seen='yes' WHERE receiver='".$_SESSION['id']."' or sender='".$_SESSION['id']."'";
+$SeenResult = mysqli_query($conn,$seenreciept);	
+
 if(mysqli_num_rows($result) > 0) {
     $rows=$result->num_rows;
   echo"<table class='table' style='width:700px'>";
@@ -61,23 +70,47 @@ if(mysqli_num_rows($result) > 0) {
        
        
       
-          if($senderMessages[2]==0 || $senderMessages[2]== $_SESSION['id']  )
+          if($senderMessages[2]== $_SESSION['id']  )
           {
             echo"<tr class='bg-info'>";
             echo"<td class='bg-primary'><b>".$senderMessages[3]."</b></td>";
-            echo"<td>".$senderMessages[0]."</td>";
+
+            if($senderMessages['seen']=="yes")
+            {
+              echo"<td><i>".$senderMessages[0]."</i></td>";
+          }
+          else{
+            echo"<td><b><u>".$senderMessages[0]."</u></b></td>";
+          }
+
             echo"<td>".$senderMessages[1]."</td>";
           }
+
+
           else if ($senderMessages[2]==$_GET['id']){
             echo"<tr class='bg-warning'>";
             echo"<td ><b>".$senderMessages[3]."</b></td>";
-            echo"<td>".$senderMessages[0]."</td>";
+             if($senderMessages['seen']=="yes")
+            {
+              echo"<td><i>".$senderMessages[0]."</i></td>";
+          }
+          else{
+            echo"<td><b><u>".$senderMessages[0]."</u></b></td>";
+          }
             echo"<td>".$senderMessages[1]."</td>";
           }
+
+          
           else{
             echo"<tr class='bg-dark'>";
             echo"<td ><b>".$senderMessages[3]."</b>(Comment)</td>";
-            echo"<td>".$senderMessages[0]."</td>";
+            if($senderMessages['seen']=="yes")
+            {
+              echo"<td><i>".$senderMessages[0]."</i></td>";
+          }
+          else{
+            echo"<td><b><u>".$senderMessages[0]."</u></b></td>";
+          }
             echo"<td>".$senderMessages[1]."</td>";
           }
           
