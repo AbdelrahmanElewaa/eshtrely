@@ -79,6 +79,20 @@ else{
 }
 
 </style>
+<style> 
+input[type=button]{
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 12px 27px;
+  text-decoration: none;
+  margin: 3px 1px;
+  margin-top: 20px;
+  margin-left: 225px;
+
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
     <!-- <span class="border border-success"></span> -->
@@ -101,7 +115,10 @@ else{
 <b id="uploadtext" style="margin-left:220px">Upload your profile photo:<b><br>
 <input type="file" style="margin-left:220px"name="photo"  class="ProfilePhoto" id="photo"  onchange="return fileValidation()"><br>
 <input type="hidden" value="customer" name="role" >
-<input type="submit" style="margin-left:300px" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control">
+
+<input type="submit" style="margin-left:300px" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control"><br>
+
+<input  type="button" onclick="window.location.href='loginform.php'" value="already have an account?" />
     </form>
 </div>
 </body>
