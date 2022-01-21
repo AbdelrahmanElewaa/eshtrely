@@ -63,7 +63,7 @@ if(isset($_POST['send']))
 	$createdAt = date("Y-m-d h:i:sa");
 	$sender = $_SESSION['id'];
   $senderName=$_SESSION['name'];
-	$receiver = 0;
+	$receiver = 14;
 	$message = $_POST['message'];
 	$sendMessage = "INSERT INTO messages(sender,senderName,receiver,message,createdAt) VALUES('$sender','$senderName','$receiver','$message','$createdAt')";
 	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));

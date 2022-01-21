@@ -63,13 +63,13 @@ if(isset($_POST['send']))
 	$createdAt = date("Y-m-d h:i:sa");
 	$sender = $_SESSION['id'];
   $senderName=$_SESSION['name'];
-	$receiver = 0;
+	$receiver = 14;
 	$message = $_POST['message'];
 	$sendMessage = "INSERT INTO messages(sender,senderName,receiver,message,createdAt) VALUES('$sender','$senderName','$receiver','$message','$createdAt')";
 	mysqli_query($conn,$sendMessage) or die(mysqli_error($conn));
 }
  
-$sql= "SELECT  message,sender,createdAt From messages WHERE sender=0 and receiver ='".$_SESSION['id']."' OR (sender ='".$_SESSION['id']."' AND receiver=0 ) ORDER BY createdAt asc";
+$sql= "SELECT  message,sender,createdAt From messages WHERE sender=14 and receiver ='".$_SESSION['id']."' OR (sender ='".$_SESSION['id']."' AND receiver=14) ORDER BY createdAt asc";
 $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
 if(mysqli_num_rows($result) > 0) {
     $rows=$result->num_rows;
