@@ -51,7 +51,7 @@ if(isset($_POST["action"]))
 
      ";
 
-    $result = $connect->query($query, PDO::FETCH_ASSOC) or die("teezak");
+    $result = $connect->query($query, PDO::FETCH_ASSOC) or die("error");
 
     foreach($result as $row)
     {
