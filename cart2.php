@@ -43,9 +43,7 @@ if (!empty($_SESSION['name']))
      
      $sql2="INSERT INTO orders (`userid`,`productid`,`quantity`) VALUES ('".$_SESSION["id"]."','".$values[ "item_id" ]."','".$values["item_quantity"]."') ";
      $result2=mysqli_query($conn,$sql2)or die($conn->error); 
-     // if($result2){
-     //  echo"ay 7aga";
-     // }
+    
       
 
     }
@@ -56,9 +54,6 @@ if (!empty($_SESSION['name']))
  
  
 
-//   if ($cart_data) {
-//     header("location:cart2.php?Checkout=1");
-//   }
 
  setcookie("shopping_cart", "", time() - 3600);
  
