@@ -191,8 +191,8 @@ $result= mysqli_query($conn,$sql);
     $_SESSION['address']=$_POST['address'];
      
    
-    
-     echo "<alert style='margin-top:20px;' class='form-control alert alert-success justify-content-center'> <i class='far fa-check-circle'></i>Account Edited Succesfuly</alert>";
+    echo'<a value="Go back to table" style="font-size:50px; float:right;  margin-right:600px; color:red;" href="index.php"><i class="fas fa-door-open"></i></a>';
+     echo "<alert style='margin-left:400px; width:400px;' class='form-control alert alert-success justify-content-center'> <i class='far fa-check-circle'></i>Account Edited Succesfuly</alert>";
      $target_dir="images/";
     $target_file=$target_dir.basename($_FILES['photo']['name']);
     $uploadOk=1;
@@ -214,9 +214,11 @@ else{
     else{
         //echo "sorry there was an error";
     }
+    //header("Location:index.php");
    }
-     //header("Location:index.php");
+   
  }
+  
 }
 }
 
