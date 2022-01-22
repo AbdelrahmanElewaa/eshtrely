@@ -1,66 +1,3 @@
-<?php
-if(isset($_POST['signup'])){
-    
-    try{
-        if(($conn = new mysqli("localhost", "root", "", "eshtrely"))-> connect_errno){
-            throw new customException("<h1 style='color:red;'>Unable to Connect</h1>");
-        }
-    }
-    catch (customException $e) {
-        echo $e->errorMessage();
-        }
-
- $checkemail="SELECT * FROM users WHERE email='".$_POST['email']."' ";
- $resultcheck= mysqli_query($conn,$checkemail);
- if($row=mysqli_fetch_array($resultcheck))
- {
-  
-  echo "<script> document.getElementById('emailexists').innerHTML='There is Account with That Email'
-  </script>";
- }
- else{
-     
-$sql= "INSERT INTO users (name,email,phone,address,password,role,photo) VALUES ('".$_POST['name']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['address']."','".$_POST['password']."','".$_POST['role']."','".$_FILES['photo']['name']."')";
-$result= mysqli_query($conn,$sql);
- if($result)
- {
-     echo "<alert style='margin-top:20px;' class='form-control alert alert-success justify-content-center'> <i class='far fa-check-circle'></i>Account Created Succesfuly</alert>";
-     $target_dir="images/";
-	$target_file=$target_dir.basename($_FILES['photo']['name']);
-	$uploadOk=1;
-	//$imageFileType= strtolower(pathinfo($target_file),PATHINFO_EXTENSION);
-	if(file_exists($target_file))
-	{
-echo "sorry file doesnt exist";
-$uploadOk=0;
-	}
-if($uploadOk==0)
-{
-	echo "sorry your file is not uploaded";
-}
-else{
-	if(move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file))
-	{
-		echo "the file has been uploaded";
-	}
-	else{
-		echo "sorry there was an error";
-	}
-   }
-     header("Location:index.php");
- }
- else
- {
-     echo "error";
- }
-}
-   
-}
-
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,20 +15,6 @@ else{
     color:red;
 }
 
-</style>
-<style> 
-input[type=button]{
-  background-color: #008CBA;
-  border: none;
-  color: white;
-  padding: 12px 27px;
-  text-decoration: none;
-  margin: 3px 1px;
-  margin-top: 20px;
-  margin-left: 225px;
-
-  cursor: pointer;
-}
 </style>
 </head>
 <body>
@@ -113,12 +36,9 @@ input[type=button]{
 <div id="passworderror"class="error"></div>
 <div id="emailexists"class="error"></div><br>
 <b id="uploadtext" style="margin-left:220px">Upload your profile photo:<b><br>
-<input type="file" style="margin-left:220px"name="photo"  class="ProfilePhoto" id="photo"  onchange="return fileValidation()"><br>
+<input type="file" style="margin-left:220px"name="photo"  class="ProfilePhoto"><br>
 <input type="hidden" value="customer" name="role" >
-
-<input type="submit" style="margin-left:300px" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control"><br>
-
-<input  type="button" onclick="window.location.href='loginform.php'" value="already have an account?" />
+<input type="submit" style="margin-left:300px" value="Sign Up" name="signup" class="btn btn-success signupbtn" class="form-control">
     </form>
 </div>
 </body>
@@ -189,38 +109,63 @@ function validate()
 
 
 
-function fileValidation() {
-            var fileInput = 
-                document.getElementById('photo');
-              
-            var filePath = fileInput.value;
-            var allowedExtensions = 
-                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-              
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Invalid file type');
-                fileInput.value = '';
-                return false;
-            } 
-            else 
-            {
-                if (fileInput.files && fileInput.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById(
-                            'imagePreview').innerHTML = 
-                            '<img src="' + e.target.result
-                            + '"/>';
-                    };
-                      
-                    reader.readAsDataURL(fileInput.files[0]);
-                }
-            }
-        }
-
 </script>
 
+<?php
+if(isset($_POST['signup'])){
+    
+  
+$conn= new mysqli("localhost","root","","eshtrely");
 
+ $checkemail="SELECT * FROM users WHERE email='".$_POST['email']."' ";
+ $resultcheck= mysqli_query($conn,$checkemail);
+ if($row=mysqli_fetch_array($resultcheck))
+ {
+  
+  echo "<script> document.getElementById('emailexists').innerHTML='There is Account with That Email'
+  </script>";
+ }
+ else{
+     
+$sql= "INSERT INTO users (name,email,phone,address,password,role,photo) VALUES ('".$_POST['name']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['address']."','".$_POST['password']."','".$_POST['role']."','".$_FILES['photo']['name']."')";
+$result= mysqli_query($conn,$sql);
+ if($result)
+ {
+     echo "<alert style='margin-top:20px;' class='form-control alert alert-success justify-content-center'> <i class='far fa-check-circle'></i>Account Created Succesfuly</alert>";
+     $target_dir="images/";
+	$target_file=$target_dir.basename($_FILES['photo']['name']);
+	$uploadOk=1;
+	//$imageFileType= strtolower(pathinfo($target_file),PATHINFO_EXTENSION);
+	if(file_exists($target_file))
+	{
+echo "sorry file doesnt exist";
+$uploadOk=0;
+	}
+if($uploadOk==0)
+{
+	echo "sorry your file is not uploaded";
+}
+else{
+	if(move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file))
+	{
+		echo "the file has been uploaded";
+	}
+	else{
+		echo "sorry there was an error";
+	}
+   }
+     header("Location:index.php");
+ }
+ else
+ {
+     echo "error";
+ }
+}
+   
+}
+
+
+?>
 
 
 
