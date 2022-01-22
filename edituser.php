@@ -160,7 +160,8 @@ function fileValidation() {
 
 
 <?php
-if(isset($_POST['editsubmit'])){
+function edituser(){
+    if(isset($_POST['editsubmit'])){
    
 $conn= new mysqli("localhost","root","","eshtrely");
 
@@ -191,33 +192,36 @@ $result= mysqli_query($conn,$sql);
      
    
     
-     echo "<alert style='margin-top:20px;' class='form-control alert alert-success justify-content-center'> <i class='far fa-check-circle'></i>Account Created Succesfuly</alert>";
+     echo "<alert style='margin-top:20px;' class='form-control alert alert-success justify-content-center'> <i class='far fa-check-circle'></i>Account Edited Succesfuly</alert>";
      $target_dir="images/";
-	$target_file=$target_dir.basename($_FILES['photo']['name']);
-	$uploadOk=1;
-	//$imageFileType= strtolower(pathinfo($target_file),PATHINFO_EXTENSION);
-	if(file_exists($target_file))
-	{
-echo "sorry file doesnt exist";
+    $target_file=$target_dir.basename($_FILES['photo']['name']);
+    $uploadOk=1;
+    //$imageFileType= strtolower(pathinfo($target_file),PATHINFO_EXTENSION);
+    if(file_exists($target_file))
+    {
+//echo "sorry file doesnt exist";
 $uploadOk=0;
-	}
+    }
 if($uploadOk==0)
 {
-	echo "sorry your file is not uploaded";
+    //echo "sorry your file is not uploaded";
 }
 else{
-	if(move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file))
-	{
-		echo "the file has been uploaded";
-	}
-	else{
-		echo "sorry there was an error";
-	}
+    if(move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file))
+    {
+        //echo "the file has been uploaded";
+    }
+    else{
+        //echo "sorry there was an error";
+    }
    }
-     header("Location:index.php");
+     //header("Location:index.php");
  }
 }
+}
 
+
+edituser();
 
 ?>
 

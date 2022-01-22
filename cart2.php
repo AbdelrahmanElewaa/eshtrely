@@ -95,9 +95,15 @@ else{
       <?php
 
 }   /// close curly bracket of the else above
+if(isset($_POST['logout']))
+{
+  $_SESSION['name']="";
+  $_SESSION['photo']="";
+  header('Location:index.php');
+  setcookie("shopping_cart", "", time() - 3600);
+}
 
-
-$connect = new PDO("mysql:host=localhost;dbname=test", "root", "");
+$connect = new PDO("mysql:host=localhost;dbname=eshtrely", "root", "");
 
 
 
